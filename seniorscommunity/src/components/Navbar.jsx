@@ -1,4 +1,4 @@
-import React from 'react'
+
 import {School, User2} from 'lucide-react'
 const Navbar = () => {
   return (
