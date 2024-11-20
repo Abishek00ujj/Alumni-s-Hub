@@ -13,7 +13,7 @@ const RootPage = () => {
                    <p>Senior register</p>
                 </div>
                 <div className='w-[100%] p-10 border-2 border-black'>
-                   <p>Junior register</p>
+                   <p>Junior registr</p>
                 </div>
            </div>
         </div>
