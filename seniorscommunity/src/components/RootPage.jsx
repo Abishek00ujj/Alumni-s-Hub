@@ -1,22 +1,10 @@
 import React from 'react'
-
+import Loading from './Loading'
 const RootPage = () => {
   return (
     <>
-      <div className='w-screen h-screen'>
-        <div className='w-[60%] border-2 border-black min-h-50 max-h-50 flex'>
-           <div className='w-[100%] m-10'>
-              <p>View your seniors</p>
-           </div>
-           <div className='w-[60%]  flex'>
-                <div className='w-[100%] p-10 border-2 border-black'>
-                   <p>Senior register</p>
-                </div>
-                <div className='w-[100%] p-10 border-2 border-black'>
-                   <p>Junior registr</p>
-                </div>
-           </div>
-        </div>
+      <div className='w-screen h-screen bg-black justify-center items-center flex'>
+           <Loading/>
       </div>
     </>
   )
