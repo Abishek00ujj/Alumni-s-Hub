@@ -44,7 +44,7 @@ export const Signin = () => {
                 <button className='bg-blue-950 text-white p-3 rounded-xl' onClick={HandleMonkey}>Continue</button>
              </div>
             <div className='text-orange-400'>
-            <span className='font-bold text-black'>New to ALUMNIS-HUB?</span><Link to={'/'}><span className='underline'>Register</span></Link>
+            <span className='font-bold text-black'>New to ALUMNIS-HUB?</span><Link to={'/signup'}><span className='underline'>Register</span></Link>
             
             </div>
             </>
