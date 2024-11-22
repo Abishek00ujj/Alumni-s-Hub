@@ -1,10 +1,11 @@
 import React from 'react'
 import Navbar from './Navbar'
+import Stdimg from '../assets/clgstd.png'
 export const Signin = () => {
   return (
     <>
       <Navbar/>
-      <div className='w-screen h-screen bg-black flex justify-center items-center'>
+      <div className='w-screen h-screen bg-black  justify-center items-center flex flex-row-reverse min-2xl:flex max-lg:flex-col p-5 max-2xl:justify-between p-5'>
          <div className='w-[450px] h-[400px] bg-slate-50 rounded-xl flex flex-col space-y-5 justify-center items-center'>
              <div className='text-4xl font-bold'>Sign in</div>
              <div> <span className='font-bold'>Students & Alumni</span> (SIET)</div>
@@ -23,8 +24,8 @@ export const Signin = () => {
             <span className='font-bold text-black'>New to ALUMNIS-HUB?</span> <span className='underline'>Register</span>
             </div>
          </div>
-         <div>
-
+         <div className=' max-xl:w-[50%] max-sm:w-screen h-auto'>
+              <img src={Stdimg} alt="" className='w-[500px] h-[400px]'/>
          </div>
       </div>
     </>
