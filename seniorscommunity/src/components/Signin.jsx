@@ -3,20 +3,10 @@ import Navbar from './Navbar'
 import Stdimg from '../assets/clgstd.png'
 import { LoaderIcon } from 'lucide-react'
 export const Signin = () => {
-   const [Loading,setLoading]=useState(true);
+   const [Loading,setLoading]=useState(false);
    const [darkmode,setDarkmode]=useState(true);
    const [Hide,setHide]=useState(true);
    const [Mail,setMail]=useState(false);
-   const handleMail=()=>{
-      if(Mail)
-      {
-         setMail(false);
-      }
-      else
-      {
-         setMail(true);
-      }
-   }
    const HandleMonkey = () => {
       setHide(false);
       setLoading(true);
@@ -59,10 +49,14 @@ export const Signin = () => {
             </div>
             </>
                ):(
-                  <div className='w-full h-full flex flex-col justify-around items-center'>
+                  <div className='w-full h-full flex flex-col justify-around items-center space-y-5'>
                      {
                         Loading ?(
-                           <LoaderIcon className='animate-spin' color='orange'/> 
+                           <div className='w-full h-full justify-center items-center flex'>
+                           <div className='w-[50px] h-[50px] bg-orange-400 rounded-full animate-spin'>
+                               <div className='w-[40px] h-[40px] bg-[#f8f8f8] rounded-full'></div>
+                           </div>
+                       </div>
                         ):(
                            <>
                            <div className='text-2xl font-bold font-sans'>
@@ -77,7 +71,7 @@ export const Signin = () => {
                      <div>
                         <button className='bg-orange-400 p-3 rounded-lg'>SIGN IN</button>
                      </div>
-                           </>
+                  </>
                         )
                      }
                   </div>
