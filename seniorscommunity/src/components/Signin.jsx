@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Navbar from './Navbar'
 import Stdimg from '../assets/clgstd.png'
-import { LoaderIcon } from 'lucide-react'
 export const Signin = () => {
    const [Loading,setLoading]=useState(false);
    const [darkmode,setDarkmode]=useState(true);
@@ -60,7 +59,7 @@ export const Signin = () => {
                         ):(
                            <>
                            <div className='text-2xl font-bold font-sans'>
-                        Enter the registered email
+                        Enter the registered email!
                      </div>
                      <div>
                         <input type="text" className='border border-black pl-8 pr-8 pt-3 pb-3 rounded-lg w-full'placeholder='Email' />
@@ -69,7 +68,7 @@ export const Signin = () => {
                         <input type="password" name="" id="" className='border border-black pl-8 pr-8 pt-3 pb-3 rounded-lg w-full' placeholder='Password'/>
                      </div>
                      <div>
-                        <button className='bg-orange-400 p-3 rounded-lg'>SIGN IN</button>
+                        <button className='bg-blue-950 p-3 rounded-lg text-white'>SIGN IN</button>
                      </div>
                   </>
                         )
@@ -86,4 +85,4 @@ export const Signin = () => {
   )
 }
 
-export default Signin
+export default Signin;
