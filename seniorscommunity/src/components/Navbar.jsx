@@ -14,7 +14,7 @@ const Navbar = () => {
   }
   return (
      <>
-        <div className='w-screen h-[8vh] bg-blue-950 flex space-x-4 justify-between p-5'>
+        <div className='w-screen h-[8vh] bg-blue-950 flex space-x-4 justify-between p-2'>
           <div className='flex space-x-3'>
             <div className='text-white font-sans font-bold text-2xl flex justify-center items-center hover:text-orange-400'>ALUMNIS HUB |</div>
             <div className='text-white flex items-center font-semibold'>Help Center</div>
@@ -27,7 +27,7 @@ const Navbar = () => {
                   <ChevronUp size={40} onClick={handleDownbar}/>
                  )
                }
-              <button className='bg-orange-400 rounded-xl p-3 text-white font-bold flex hover:text-lg'>SIGN IN</button>
+              <button className='bg-orange-400 rounded-xl p-3 text-white font-bold flex hover:text-black'>SIGN IN</button>
             </div>
         </div>
         {
