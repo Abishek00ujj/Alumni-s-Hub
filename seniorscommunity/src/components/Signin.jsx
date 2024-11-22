@@ -18,13 +18,9 @@ export const Signin = () => {
       }
    }
    const HandleMonkey = () => {
+      setHide(false);
       setLoading(true);
-      const timeoutId = setTimeout(() => {
-         setLoading(false);
-         setHide(false);
-      }, 1000);
-   
-      return () => clearTimeout(timeoutId); 
+      setTimeout(()=>setLoading(false),1000);
    }
    
    const HandleDarkmode=()=>{
@@ -47,7 +43,7 @@ export const Signin = () => {
                   <div className='text-4xl font-bold' onClick={HandleDarkmode}>Sign in</div>
              <div> <span className='font-bold'>Students & Alumni</span> (SIET)</div>
              <div>Please select your year of passing to sign in.</div>
-             <select name="" id="" className='p-3 w-[80%]' required>
+             <select name="" id="" className='p-3 w-[80%] border border-black rounded-lg' required>
                 <option value="">Please select your year of passing</option>
                 <option value="">2025</option>
                 <option value="">2026</option>
@@ -63,7 +59,7 @@ export const Signin = () => {
             </div>
             </>
                ):(
-                  <div className='w-[400px] h-[380px] flex flex-col m-10 items-center justify-center gap-5'>
+                  <div className='w-full h-full flex flex-col justify-around items-center'>
                      {
                         Loading ?(
                            <LoaderIcon className='animate-spin' color='orange'/> 
