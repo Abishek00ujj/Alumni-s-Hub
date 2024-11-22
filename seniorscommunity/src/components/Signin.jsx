@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Navbar from './Navbar'
 import Stdimg from '../assets/clgstd.png'
+import {Link} from 'react-router-dom'
 export const Signin = () => {
    const [Loading,setLoading]=useState(false);
    const [darkmode,setDarkmode]=useState(true);
@@ -43,7 +44,7 @@ export const Signin = () => {
                 <button className='bg-blue-950 text-white p-3 rounded-xl' onClick={HandleMonkey}>Continue</button>
              </div>
             <div className='text-orange-400'>
-            <span className='font-bold text-black'>New to ALUMNIS-HUB?</span> <span className='underline'>Register</span>
+            <span className='font-bold text-black'>New to ALUMNIS-HUB?</span><Link to={'/'}><span className='underline'>Register</span></Link>
             
             </div>
             </>

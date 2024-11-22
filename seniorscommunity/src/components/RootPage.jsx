@@ -7,6 +7,9 @@ const RootPage = () => {
     <>
     <div>
      <Navbar/>
+     <div className='bg-violet-600 w-screen h-[500px]'>
+         <div className='text-3xl text-white bold'>ALUMNIS-HUB</div>
+     </div>
     </div>
     </>
   )
