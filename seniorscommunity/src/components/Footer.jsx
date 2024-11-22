@@ -1,5 +1,5 @@
 import {Heart} from 'lucide-react'
-const Footer = () => {
+export const Footer = () => {
   return (
     <>
     

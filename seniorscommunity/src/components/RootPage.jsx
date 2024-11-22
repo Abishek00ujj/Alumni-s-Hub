@@ -1,11 +1,13 @@
 import React from 'react'
 import Loading from './Loading'
+import {Navbar} from './Navbar'
+import {Footer} from './Footer'
 const RootPage = () => {
   return (
     <>
-      <div className='w-screen h-screen bg-black justify-center items-center flex'>
-           <Loading/>
-      </div>
+    <div>
+     <Navbar/>
+    </div>
     </>
   )
 }

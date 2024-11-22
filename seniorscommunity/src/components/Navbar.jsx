@@ -1,6 +1,6 @@
 import {ChevronDown,ChevronUp} from 'lucide-react'
 import { useState } from 'react'
-const Navbar = () => {
+export const Navbar = () => {
   const [downbar,setDownbar]=useState(false);
   const handleDownbar=()=>{
     if(downbar)

@@ -1,13 +1,16 @@
 import React from 'react'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
 import RootPage from './components/RootPage'
+import {BrowserRouter,Routes,Route} from 'react-router-dom'
+import Signin from './components/Signin'
 const App = () => {
   return (
     <>
-      <Navbar/>
-      <RootPage/>
-      <Footer/>
+    <BrowserRouter>
+    <Routes>
+        <Route path={"/"} element={<RootPage/>}/>
+        <Route path={"/signin"} element={<Signin/>}/>
+    </Routes>
+    </BrowserRouter>
     </>
   )
 }
