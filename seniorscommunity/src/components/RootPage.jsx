@@ -7,10 +7,10 @@ import { Navigate } from 'react-router-dom'
 const RootPage = () => {
   const [color,setColor]=useState(false);
   const [Scroll,setScroll]=useState(false);
+  setInterval(()=>{
+    return setColor(!color);
+  },2000);
   useEffect(()=>{
-    setInterval(()=>{
-      return setColor(!color);
-    },2000);
     setTimeout(()=>setScroll(true),5000);
     const scrollTimeout = setTimeout(() => {
       const bottomElement = document.getElementById("bottom");
