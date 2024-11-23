@@ -43,7 +43,7 @@ const RootPage = () => {
   </div>
 </div>
      <div id='bottom' className='w-full flex justify-center items-center'>
-           <div className='w-[400px] h-[300px] border border-black rounded-lg m-10 flex flex-col items-center justify-center space-y-5'>
+           <div className='w-[400px] h-[300px] border border-black rounded-lg  flex flex-col items-center justify-center space-y-5 mt-14 '>
                 <div className='text-2xl font-bold  text-center'>
                   Join Now!
                 </div>
