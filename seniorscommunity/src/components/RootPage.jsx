@@ -1,18 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Loading from './Loading'
 import {Navbar} from './Navbar'
 import {Footer} from './Footer'
 import Abi from '../assets/abi.png'
+import { Navigate } from 'react-router-dom'
 const RootPage = () => {
   const [color,setColor]=useState(false);
-  setInterval(()=>{
-    return setColor(!color);
-  },2000);
+  const [Scroll,setScroll]=useState(false);
+  useEffect(()=>{
+    setInterval(()=>{
+      return setColor(!color);
+    },2000);
+    setTimeout(()=>setScroll(true),5000);
+    const scrollTimeout = setTimeout(() => {
+      const bottomElement = document.getElementById("bottom");
+      if (bottomElement) {
+        bottomElement.scrollIntoView({ behavior: "smooth" });
+      }
+    },5000);
+  },[])
   return (
     <>
     <div>
      <Navbar/>
-     <div className='bg-violet-600 w-screen h-[500px]'>
+     <div className='bg-violet-600 w-screen h-[600px]'>
          <div className='text-5xl text-white font-bold p-10'>
          <p className='hover:text-orange-400'>{color?(<span className='text-orange-500'>A</span>):(<span className='text-green-500'>A</span>)}LUMNIS-HUB</p>
           </div>
@@ -27,6 +38,11 @@ Together, we build a stronger, united future.</div>
           <img src={Abi} alt="" className='w-[60px] h-[60px] rounded-full' /><div className='p-2 justify-center items-center flex flex-col'><p className=' font-bold'>Founder & CEO</p><p>Mission Possible pvt lmt</p><p>ABISHEK</p></div>
          </div>
          </div>
+     </div>
+     <div id='bottom'>
+           <div className='w-[400px] h-[300px] border border-black rounded-lg'>
+                
+           </div>  
      </div>
     </div>
     </>
