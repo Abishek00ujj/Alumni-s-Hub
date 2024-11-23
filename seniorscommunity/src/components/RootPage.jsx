@@ -6,38 +6,80 @@ import Abi from '../assets/abi.png'
 import { Navigate } from 'react-router-dom'
 const RootPage = () => {
   const [color,setColor]=useState(false);
+  const [Loading,setLoading]=useState(false);
   const [Scroll,setScroll]=useState(false);
   const [email1,setEmail]=useState(false);
+  const [userdata,setUserdata]=useState(false);
   const emailref=useRef(null);
   const handleCheckemail=()=>{
+    setLoading(true);
+    setUserdata(null);
          const email=emailref.current.value;
-         let x="";
-         let emailBack="srishakthi.ac.in";
+         let year="";
+         let emailBack="@srishakthi.ac.in";
          let dummy="";
+         let Name="";
+         let Department="";
          let f=0;
+         let f1=0;
+         let f2=0;
          for(let i=0;i<email.length;i++)
          {
-             if(email.charAt(i)=='@')
+          if(email.charAt(i)=='@')
+            {
+                f=1;
+            }
+           if(email.charAt(i)>=0 && email.charAt(i)<=9)
+           {
+             f1=1;
+             year=year+email.charAt(i);
+           }
+             if(f1==0)
              {
-                 f=1;
+              Name+=email.charAt(i);
              }
              if(f==1)
              {
                 dummy+=email.charAt(i);
              }
-             if(email.charAt(i)>=0 && email.charAt(i)<=9)
-             {
-               x=x+email.charAt(i);
-             }
          }
-         if(x.length!=2 && dummy!=emailBack)
+         let t=0;
+         let fx=0;
+         for(let i=0;i<email.length;i++)
+         {
+            if(email.charAt(i)>='0' && email.charAt(i)<='9')
+            {
+               t++;
+            }
+               if(t==2)
+                {
+                  Department+=email.charAt(i+1);
+                  if(email.charAt(i+2)=='@')
+                    {
+                      break;
+                    }
+                }
+         }
+
+         if(year.length==2 && dummy==emailBack)
           {
-            setEmail(true);
+            setEmail(false);
           }  
           else
           {
-            setEmail(false);
-          }   
+            setEmail(true);
+            return;
+          }  
+          let x1 = Name.charAt(Name.length - 1); 
+          Name = Name.slice(0, -1) + " " + x1;
+          const userData={
+            Name:Name.toUpperCase(),
+            Email:email,
+            Year:year,
+            Department:Department.toUpperCase(),
+          }
+          console.log(userData);
+          setUserdata(userData);
   }
   setInterval(()=>{
     return setColor(!color);
@@ -51,6 +93,10 @@ const RootPage = () => {
       }
     },5000);
   },[])
+  if(userdata)
+  {
+    setTimeout(()=>setLoading(false),2000);
+  }
   return (
     <>
      <Navbar/>
@@ -74,8 +120,8 @@ const RootPage = () => {
     </div>
   </div>
 </div>
-     <div id='bottom' className='w-full flex justify-center items-center'>
-           <div className='w-[400px] h-[300px] border border-black rounded-lg  flex flex-col items-center justify-center space-y-5 mt-14 '>
+     <div id='bottom' className='w-full  flex justify-center items-center'>
+           <div className='w-[400px] h-auto border border-black rounded-lg  flex flex-col items-center justify-center space-y-5 mt-14 '>
                 <div className='text-2xl font-bold  text-center'>
                   Join Now!
                 </div>
@@ -85,8 +131,34 @@ const RootPage = () => {
                 </div>
                 <div><button className='bg-orange-400 text-white p-3 rounded-lg' onClick={handleCheckemail}>Join the community!</button></div>
                 <div className='font-bold text-red-500'>{ email1 &&("Please enter a valid college email!")}</div>
-           </div>  
-           
+                <div>
+                  { userdata &&(
+                    !Loading?(
+                      <>
+                      <div className='w-full h-full p-5'>
+                        <p className='text-2xl font-bold'>Please confirm your details✅</p>
+                        <p>Name: {userdata.Name}</p>
+                        <p>Department: {userdata.Department}</p>
+                        <p>Email: {userdata.Email}</p>
+                        <p>Acadamic year: {`20${userdata.Year}-20${parseInt(userdata.Year)+ 4}`}</p>
+                        <div className='w-full justify-end flex'><button className='bg-green-400 text-white p-2 rounded-lg cursor-pointer'>CONFIRM</button></div>
+                    </div>
+                      </>
+                    ):(
+                      <>
+                          <div className='w-full h-full justify-center items-center flex'>
+                           <div className='w-[50px] h-[50px] bg-orange-400 rounded-full animate-spin'>
+                               <div className='w-[40px] h-[40px] bg-[#f8f8f8] rounded-full'></div>
+                           </div>
+                       </div>
+                      </>
+                    )
+                
+                  )
+
+                  }
+                </div>
+           </div> 
      </div>
     </div>
     </>
