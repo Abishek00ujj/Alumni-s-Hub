@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Loading from './Loading'
 import {Navbar} from './Navbar'
 import {Footer} from './Footer'
@@ -7,6 +7,27 @@ import { Navigate } from 'react-router-dom'
 const RootPage = () => {
   const [color,setColor]=useState(false);
   const [Scroll,setScroll]=useState(false);
+  const [email1,setEmail]=useState(false);
+  const emailref=useRef(null);
+  const handleCheckemail=()=>{
+         const email=emailref.current.value;
+         let x="";
+         for(let i=0;i<email.length;i++)
+         {
+             if(email.charAt(i)>=0 && email.charAt(i)<=9)
+             {
+               x=x+email.charAt(i);
+             }
+         }
+         if(x.length!=2)
+          {
+            setEmail(true);
+          }  
+          else
+          {
+            setEmail(false);
+          }   
+  }
   setInterval(()=>{
     return setColor(!color);
   },2000);
@@ -48,11 +69,13 @@ const RootPage = () => {
                   Join Now!
                 </div>
                 <div className=''>
-                  <input type="text"  className='w-full h-10 border border-black pl-8 pr-8 pt-3 pb-3' placeholder='Official Email Address'/>
+                  <input type="text" ref={emailref}  className='w-full h-10 border border-black pl-8 pr-8 pt-3 pb-3' placeholder='Official Email Address'/>
                   <div className=''>eg.abisheks22it@srishakthi.ac.in</div>
                 </div>
-                <div><button className='bg-orange-400 text-white p-3 rounded-lg'>Join the community!</button></div>
+                <div><button className='bg-orange-400 text-white p-3 rounded-lg' onClick={handleCheckemail}>Join the community!</button></div>
+                <div className='font-bold text-red-500'>{ email1 &&("Please enter a valid college email!")}</div>
            </div>  
+           
      </div>
     </div>
     </>
