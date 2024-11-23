@@ -35,13 +35,19 @@ Where knowledge flows from mentors to eager learners.
 Celebrating the journeys of our alumni and juniors alike.
 Together, we build a stronger, united future.</div>
          <div className='w-full flex justify-end space-x-2'>
-          <img src={Abi} alt="" className='w-[60px] h-[60px] rounded-full' /><div className='p-2 justify-center items-center flex flex-col'><p className=' font-bold'>Founder & CEO</p><p>Mission Possible pvt lmt</p><p>ABISHEK</p></div>
+          <img src={Abi} alt="" className='w-[60px] h-[60px] rounded-full' /><div className='p-2 justify-center items-center flex flex-col'><p>ABISHEK</p><p className=' font-bold'>Founder & CEO</p><p>Mission Possible pvt lmt</p></div>
          </div>
          </div>
      </div>
      <div id='bottom'>
            <div className='w-[400px] h-[300px] border border-black rounded-lg'>
-                
+                <div className='text-2xl font-bold  text-center'>
+                  Register Now!
+                </div>
+                <div>
+                  <input type="text" />
+                  <input type="text" name="" id="" />
+                </div>
            </div>  
      </div>
     </div>
