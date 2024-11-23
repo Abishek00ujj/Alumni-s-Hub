@@ -12,14 +12,25 @@ const RootPage = () => {
   const handleCheckemail=()=>{
          const email=emailref.current.value;
          let x="";
+         let emailBack="srishakthi.ac.in";
+         let dummy="";
+         let f=0;
          for(let i=0;i<email.length;i++)
          {
+             if(email.charAt(i)=='@')
+             {
+                 f=1;
+             }
+             if(f==1)
+             {
+                dummy+=email.charAt(i);
+             }
              if(email.charAt(i)>=0 && email.charAt(i)<=9)
              {
                x=x+email.charAt(i);
              }
          }
-         if(x.length!=2)
+         if(x.length!=2 && dummy!=emailBack)
           {
             setEmail(true);
           }  
