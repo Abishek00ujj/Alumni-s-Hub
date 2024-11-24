@@ -96,6 +96,10 @@ const RootPage = () => {
   if(userdata)
   {
     setTimeout(()=>setLoading(false),2000);
+    const bottomElement1 = document.getElementById("bottom1");
+    if (bottomElement1) {
+      bottomElement1.scrollIntoView({ behavior: "smooth" });
+    }
   }
   return (
     <>
@@ -135,7 +139,7 @@ const RootPage = () => {
                   { userdata &&(
                     !Loading?(
                       <>
-                      <div className='w-full h-full p-5'>
+                      <div className='w-full h-full p-5' id='bottom1'>
                         <p className='text-2xl font-bold'>Please confirm your details✅</p>
                         <p>Name: {userdata.Name}</p>
                         <p>Department: {userdata.Department}</p>
