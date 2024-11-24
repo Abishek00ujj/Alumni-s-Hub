@@ -4,7 +4,21 @@ import {Navbar} from './Navbar'
 import {Footer} from './Footer'
 import Abi from '../assets/abi.png'
 import { Navigate } from 'react-router-dom'
+import Otpbox from './Otpbox'
 const RootPage = () => {
+  
+  const [otp,setOtp]=useState("");
+  const [otp1,setOtp1]=useState("");
+  const [hide1,setHide1]=useState(true);
+  const handleChangeOTP=(newOTP)=>{
+     setOtp(newOTP);
+     console.log(otp1)
+     console.log(otp)
+     if(otp1==otp)
+     {
+      console.log("correct");
+     }
+  }
   const [color,setColor]=useState(false);
   const [Loading,setLoading]=useState(false);
   const [Scroll,setScroll]=useState(false);
@@ -84,7 +98,19 @@ const RootPage = () => {
   setInterval(()=>{
     return setColor(!color);
   },2000);
+  const handleConfirm=()=>{
+        if(hide1)
+        {
+            setHide1(false);
+        }
+        else{
+          setHide1(true);
+        }
+  }
   useEffect(()=>{
+    var generatedOTP = Math.floor(1000 + Math.random() * 9000);
+    setOtp1(generatedOTP);
+    console.log(generatedOTP);
     setTimeout(()=>setScroll(true),5000);
     const scrollTimeout = setTimeout(() => {
       const bottomElement = document.getElementById("bottom");
@@ -93,7 +119,8 @@ const RootPage = () => {
       }
     },5000);
   },[])
-  if(userdata)
+  let c=0;
+  if(userdata && c==0)
   {
     setTimeout(()=>setLoading(false),2000);
     const bottomElement1 = document.getElementById("bottom1");
@@ -126,6 +153,7 @@ const RootPage = () => {
 </div>
      <div id='bottom' className='w-full  flex justify-center items-center'>
            <div className='w-[400px] h-auto border border-black rounded-lg  flex flex-col items-center justify-center space-y-5 mt-14 '>
+              {hide1?(<>
                 <div className='text-2xl font-bold  text-center'>
                   Join Now!
                 </div>
@@ -145,7 +173,7 @@ const RootPage = () => {
                         <p>Department: {userdata.Department}</p>
                         <p>Email: {userdata.Email}</p>
                         <p>Acadamic year: {`20${userdata.Year}-20${parseInt(userdata.Year)+ 4}`}</p>
-                        <div className='w-full justify-end flex'><button className='bg-green-400 text-white p-2 rounded-lg cursor-pointer'>CONFIRM</button></div>
+                        <div className='w-full justify-end flex'><button className='bg-green-400 text-white p-2 rounded-lg cursor-pointer' onClick={handleConfirm}>CONFIRM</button></div>
                     </div>
                       </>
                     ):(
@@ -162,6 +190,14 @@ const RootPage = () => {
 
                   }
                 </div>
+                </>):(
+                  <>
+                    <div className='w-full flex justify-center flex-col items-center space-y-5 p-10'>
+                      <p className=''>OTP is sent to <span className='text-green-500 font-bold'>{userdata.Email}</span></p>
+                       <Otpbox length={4} onChangeOTP={handleChangeOTP}/>
+                    </div>
+                  </>
+                )}
            </div> 
      </div>
     </div>
