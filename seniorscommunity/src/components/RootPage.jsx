@@ -57,6 +57,23 @@ const RootPage = () => {
         dummy += email.charAt(i);
       }
     }
+    let t=0;
+         let fx=0;
+         for(let i=0;i<email.length;i++)
+         {
+            if(email.charAt(i)>='0' && email.charAt(i)<='9')
+            {
+               t++;
+            }
+               if(t==2)
+                {
+                  Department+=email.charAt(i+1);
+                  if(email.charAt(i+2)=='@')
+                    {
+                      break;
+                    }
+                }
+         }
 
     if (year.length === 2 && dummy === emailBack) {
       setEmail(false);
