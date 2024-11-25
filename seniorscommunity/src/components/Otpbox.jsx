@@ -1,26 +1,21 @@
 import React, { useState } from 'react'
 
-const Otpbox = ({length,onChangeOTP}) => {
+const Otpbox = ({length,onChangeOTP,Correct}) => {
     
     const [otp,setOtp]=useState(new Array(length).fill(""));
-    const handleChange=(element,index)=>{
-         
+    const handleChange = (element, index) => {
+        const value = element.value;
+        if (value && !isNaN(value)) { 
+            const newOtp = [...otp];
+            newOtp[index] = value;
+            setOtp(newOtp);
+            onChangeOTP(newOtp.join(""));
 
-        const value=element.value;
-        if(!value)
-        {
-             return;
+            if (index < length - 1) {
+                element.nextSibling?.focus();
+            }
         }
-
-    const newOtp=[...otp];
-    newOtp[index]=value;
-    setOtp(newOtp);
-    if(index<length-1 && value)
-    {
-        element.nextSibling.focus();
-    }
-    onChangeOTP(newOtp.join(""));
-};
+    };
  const handleBackspace=(element,index)=>{
     const newOtp=[...otp];
     newOtp[index]="";
@@ -44,7 +39,7 @@ const Otpbox = ({length,onChangeOTP}) => {
                     type="text"
                     maxLength={1}
                     value={data}
-                    className='w-14 h-14 border-[3px] mr-5 text-2xl text-medium rounded-lg text-center'
+                    className={ Correct?(`w-14 h-14 border-[3px] mr-5 text-2xl text-medium rounded-lg text-center border-green-500`):(`w-14 h-14 border-[3px] mr-5 text-2xl text-medium rounded-lg text-center`)}
                     onChange={(e)=>handleChange(e.target,index)}
                     onKeyDown={e=>{
                         if(e.key=='Backspace')
