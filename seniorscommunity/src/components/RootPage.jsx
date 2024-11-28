@@ -92,6 +92,8 @@ const RootPage = () => {
       Department: Department.toUpperCase(),
     };
     console.log(userData);
+    sessionStorage.setItem('data',userData);
+    console.log(sessionStorage.getItem('data'));
     setUserdata(userData);
     sendMail(email);
   };
