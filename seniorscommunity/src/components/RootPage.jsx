@@ -94,7 +94,7 @@ const RootPage = () => {
     console.log(userData);
     sessionStorage.setItem('data',userData);
     console.log(sessionStorage.getItem('data'));
-    setUserdata(userData);
+    setUserdata(userData)
     sendMail(email);
   };
 
