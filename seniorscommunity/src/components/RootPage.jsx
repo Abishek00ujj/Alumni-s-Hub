@@ -30,7 +30,7 @@ const RootPage = () => {
     }
   };
 
-  const handleCheckemail = () => {
+  const handleCheckemail = async() => {
     setLoading(true);
     setUserdata(null);
     const email = emailref.current.value;
@@ -92,8 +92,8 @@ const RootPage = () => {
       Department: Department.toUpperCase(),
     };
     console.log(userData);
-    sessionStorage.setItem('data',userData);
-    console.log(sessionStorage.getItem('data'));
+    sessionStorage.setItem('data',userData.name);
+    await console.log(sessionStorage.getItem('data'));
     setUserdata(userData)
     sendMail(email);
   };
