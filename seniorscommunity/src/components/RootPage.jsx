@@ -74,14 +74,12 @@ const RootPage = () => {
                     }
                 }
          }
-
     if (year.length === 2 && dummy === emailBack) {
       setEmail(false);
     } else {
       setEmail(true);
       return;
     }
-
     let x1 = Name.charAt(Name.length - 1);
     Name = Name.slice(0, -1) + " " + x1;
 
