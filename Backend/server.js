@@ -20,7 +20,7 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post("/generate-otp", (req, res) => {
-  const { email } = req.body;
+  const { email,Name } = req.body;
 
   if (!email) {
     return res.status(400).json({ message: "Email is required!" });
@@ -36,7 +36,7 @@ app.post("/generate-otp", (req, res) => {
     html: `
       <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
         <h2 style="text-align: center; color: #6c24a4;">Welcome to Alumnis-Hub🎉</h2>
-        <p>Hello,</p>
+        <p>Hello,${Name}</p>
         <p>Your OTP for verification is:</p>
         <div style="text-align: center; margin: 20px 0; font-size: 24px; font-weight: bold; color: #4CAF50;">${otp}</div>
         <p>This OTP is valid for <strong>10 minutes</strong>. Please do not share it with anyone.</p>
