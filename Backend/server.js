@@ -6,6 +6,11 @@ const cors = require("cors");
 const app = express();
 const PORT = 5000;
 
+
+require('./connection/conn');
+
+
+
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -72,6 +77,10 @@ app.post("/verify-otp", (req, res) => {
 
   res.status(400).json({ message: "Invalid OTP. Please try again." });
 });
+
+
+const AddUser=require('./Route/AddUser');
+app.use("/api/v1",AddUser);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
