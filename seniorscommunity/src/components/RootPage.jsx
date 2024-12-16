@@ -22,7 +22,6 @@ const RootPage = () => {
     setOtp(newOTP);
     if (newOTP === generatedOtp) {
       console.log("Correct OTP!");
-      // alert("OTP verified successfully!");
       SetRedirect(true);
       Setcorrect(true);
     } else {
