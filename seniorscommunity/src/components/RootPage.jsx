@@ -89,12 +89,11 @@ const RootPage = () => {
       Department: Department.toUpperCase(),
     };
     console.log(userData);
-    sessionStorage.setItem('data',JSON.stringify(userData));
-    console.log(JSON.parse(sessionStorage.getItem('data')));
-    setUserdata(userData)
+    localStorage.setItem('data',JSON.stringify(userData));
+    console.log(JSON.parse(localStorage.getItem('data')));
+    setUserdata(userData);
     sendMail(email,Name);
   };
-
   const sendMail = async (email,Name) => {
     try {
       const response = await fetch("https://alumni-s-hub.onrender.com/generate-otp", {

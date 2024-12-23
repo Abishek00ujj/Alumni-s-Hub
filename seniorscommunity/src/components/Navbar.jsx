@@ -1,6 +1,7 @@
-import {ChevronDown,ChevronUp} from 'lucide-react'
+import {ChevronDown,ChevronUp,UserCircleIcon} from 'lucide-react'
 import { useState } from 'react'
 import {Link} from 'react-router-dom'
+
 export const Navbar = () => {
   const [downbar,setDownbar]=useState(false);
   const handleDownbar=()=>{
@@ -13,6 +14,7 @@ export const Navbar = () => {
       setDownbar(true);
     }
   }
+  let UserData=localStorage.getItem('data');
   return (
      <>
         <div className='w-screen h-[8vh] bg-blue-950 flex space-x-4 justify-between p-2'>
@@ -27,7 +29,14 @@ export const Navbar = () => {
                   <ChevronUp size={40} onClick={handleDownbar}/>
                  )
                }
-             <Link to={'/signin'}> <button className='bg-orange-400 rounded-xl p-3 text-white font-bold flex hover:text-black'>SIGN IN</button></Link>
+             {/* <Link to={'/signin'}> <button className='bg-orange-400 rounded-xl p-3 text-white font-bold flex hover:text-black'>SIGN IN</button></Link> */}
+             {
+                UserData&&(
+                  <>
+                     <Link to={'/Profile'}> <div className=' rounded-full p-3 text-white font-bold flex hover:text-orange'><UserCircleIcon size={40}/></div></Link>
+                  </>
+                )
+             }
             </div>
         </div>
         {
