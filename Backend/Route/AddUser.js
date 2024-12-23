@@ -1,7 +1,8 @@
 const router=require('express').Router();
-
+const express = require("express");
 const UserSchema=require('../Model/User123');
 const UserData=require('../Model/UserData');
+router.use(express.json());
 router.post('/addUser',async(req,res)=>{
      try 
      {
@@ -51,6 +52,24 @@ router.post('/addData',async(req,res)=>{
    {
     
    }
+});
+
+
+router.post('/getData',async(req,res)=>{
+    const {id}=req.body;
+    try {
+        const data=await UserData.findOne({id});
+    if(data)
+    {
+        res.status(200).json({message:"Data available",data:data});
+    }
+    else
+    {
+        res.status(209).json({message:"Data not available"});
+    }
+    } catch (error) {
+        
+    }
 })
 
 module.exports = router;

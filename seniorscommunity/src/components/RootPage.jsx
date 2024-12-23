@@ -5,8 +5,9 @@ import { Footer } from './Footer'
 import Abi from '../assets/abi.png'
 import { Navigate } from 'react-router-dom'
 import Otpbox from './Otpbox'
-
+import {useNavigate} from 'react-router-dom'
 const RootPage = () => {
+  const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   const [generatedOtp, setGeneratedOtp] = useState("");
   const [hide1, setHide1] = useState(true);
@@ -150,9 +151,12 @@ const RootPage = () => {
   }
   if(Redirect)
     {
-      return <Navigate to={"/development"}/>
+      navigate('/profile');
     }
-
+    if(localStorage.getItem('completeUser'))
+      {
+          navigate('/userprofile');
+      }
   return (
     <>
       <Navbar />

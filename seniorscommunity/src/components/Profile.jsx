@@ -1,11 +1,13 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Navbar from './Navbar';
 import { useState } from 'react'
 // import Navbar from './Navbar'
 import Stdimg from '../assets/clgstd.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import { SetcompleteUser } from '../store';
 const Profile = () => {
+    const navigate = useNavigate();
     const [Loading, setLoading] = useState(false);
     const [darkmode, setDarkmode] = useState(true);
     const [Hide, setHide] = useState(true);
@@ -27,7 +29,6 @@ const Profile = () => {
     const linkedinRef = useRef(null);
     const githubRef = useRef(null);
     const leetcodeRef = useRef(null);
-
     const HandleSubmit = async () => {
         try {
             const obj = {
@@ -45,12 +46,33 @@ const Profile = () => {
                 } else {
                     console.log("No data found in localStorage for 'data'");
                 }
+                if (res.status === 200)
+                    {
+                        navigate('/userprofile');
+                        localStorage.setItem('completeUser',res.data);
+                   }
             }
         }
         catch (error) {
             console.log(error);
         }
     }
+        useEffect(() => {
+            const fetchData = async () => {
+                try {
+                    const res = await axios.post('http://localhost:5000/api/v1/getData', { id: UserData.Email });
+                    console.log(res.status);
+                    if (res.status === 200)
+                    {
+                        navigate('/userprofile');
+                        localStorage.setItem('completeUser',res.data);
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            };
+            fetchData();
+        }, []);
     return (
         <>
             {

@@ -1,9 +1,16 @@
 import {ChevronDown,ChevronUp,UserCircleIcon} from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 
 export const Navbar = () => {
   const [downbar,setDownbar]=useState(false);
+  const [user,setuser]=useState(false);
+  useEffect(()=>{
+    if(localStorage.getItem('completeUser'))
+      {
+        setuser(true);
+      }
+  },[]);
   const handleDownbar=()=>{
     if(downbar)
     {
@@ -33,7 +40,13 @@ export const Navbar = () => {
              {
                 UserData&&(
                   <>
-                     <Link to={'/Profile'}> <div className=' rounded-full p-3 text-white font-bold flex hover:text-orange'><UserCircleIcon size={40}/></div></Link>
+                  {
+                    user?(
+                      <Link to={'/userprofile'}> <div className=' rounded-full p-3 text-white font-bold flex hover:text-orange'><UserCircleIcon size={40}/></div></Link>
+                    ):(
+                      <Link to={'/Profile'}> <div className=' rounded-full p-3 text-white font-bold flex hover:text-orange'><UserCircleIcon size={40}/></div></Link>
+                    )
+                  }
                   </>
                 )
              }

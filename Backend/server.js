@@ -13,7 +13,7 @@ require('./connection/conn');
 
 app.use(cors());
 app.use(bodyParser.json());
-
+app.use(express.json());
 const otpStorage = {};
 
 const transporter = nodemailer.createTransport({
