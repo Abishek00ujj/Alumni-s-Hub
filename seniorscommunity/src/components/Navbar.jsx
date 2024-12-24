@@ -36,7 +36,6 @@ export const Navbar = () => {
                   <ChevronUp size={40} onClick={handleDownbar}/>
                  )
                }
-             {/* <Link to={'/signin'}> <button className='bg-orange-400 rounded-xl p-3 text-white font-bold flex hover:text-black'>SIGN IN</button></Link> */}
              {
                 UserData&&(
                   <>
