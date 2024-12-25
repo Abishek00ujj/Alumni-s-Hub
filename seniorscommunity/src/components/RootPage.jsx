@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import Loading from './Loading'
 import { Navbar } from './Navbar'
-import { Footer } from './Footer'
 import Abi from '../assets/abi.png'
-import { Navigate } from 'react-router-dom'
 import Otpbox from './Otpbox'
 import {useNavigate} from 'react-router-dom'
 const RootPage = () => {
