@@ -6,9 +6,11 @@ import Stdimg from '../assets/clgstd.png'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { SetcompleteUser } from '../store';
+import { Loader2 } from 'lucide-react';
 const Profile = () => {
     const navigate = useNavigate();
     const [Loading, setLoading] = useState(false);
+    const [load,setLoad]=useState(true);
     const [darkmode, setDarkmode] = useState(true);
     const [Hide, setHide] = useState(true);
     const [Mail, setMail] = useState(false);
@@ -30,6 +32,7 @@ const Profile = () => {
     const githubRef = useRef(null);
     const leetcodeRef = useRef(null);
     const HandleSubmit = async () => {
+        setLoad(true);
         try {
             const obj = {
                 id: UserData.Email,
@@ -55,6 +58,9 @@ const Profile = () => {
         }
         catch (error) {
             console.log(error);
+        }
+        finally{
+            setLoad(false);
         }
     }
         useEffect(() => {
@@ -115,7 +121,13 @@ const Profile = () => {
                                                             <input ref={githubRef} type="text" name="" id="" className='border border-black pl-8 pr-8 pt-3 pb-3 rounded-lg w-full' placeholder='Github username*' />
                                                         </div>
                                                         <div>
-                                                            <button onClick={HandleSubmit} className='bg-blue-950 p-3 rounded-lg text-white'>Show my profile🎉</button>
+                                                            <button onClick={HandleSubmit} className='bg-blue-950 p-3 rounded-lg text-white'>{load?(
+                                                                <>
+                                                                 <div className='animate-spin w-full h-full text-white'>
+                                                                    <Loader2 size={50}/>
+                                                                 </div>
+                                                                </>
+                                                            ):("Show my profile🎉")}</button>
                                                         </div>
                                                     </>
                                                 )
