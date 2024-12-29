@@ -37,7 +37,7 @@ const Profile = () => {
                 Github: githubRef.current.value,
                 Leetcode: leetcodeRef.current.value
             }
-            const res=await axios.post('http://localhost:5000/api/v1/addData',obj);
+            const res=await axios.post('https://alumni-s-hub.onrender.com/api/v1/addData',obj);
             if (res.status === 200) {
                 localStorage.setItem('userData', JSON.stringify(obj));
                 console.log("UserData", JSON.parse(localStorage.getItem('userData')));
@@ -60,7 +60,7 @@ const Profile = () => {
         useEffect(() => {
             const fetchData = async () => {
                 try {
-                    const res = await axios.post('http://localhost:5000/api/v1/getData', { id: UserData.Email });
+                    const res = await axios.post('https://alumni-s-hub.onrender.com/api/v1/getData', { id: UserData.Email });
                     console.log(res.status);
                     if (res.status === 200)
                     {

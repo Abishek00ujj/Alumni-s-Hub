@@ -129,7 +129,7 @@ const RootPage = () => {
     const otp = Math.floor(1000 + Math.random() * 9000).toString();
     setGeneratedOtp(otp);
     console.log("Generated OTP:", otp);
-    setTimeout(() => setScroll(true), 5000);
+    // setTimeout(() => setScroll(true), 5000);
     const scrollTimeout = setTimeout(() => {
       const bottomElement = document.getElementById("bottom");
       if (bottomElement) {
