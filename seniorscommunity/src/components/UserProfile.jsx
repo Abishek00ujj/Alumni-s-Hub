@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
-
+import { Loader2 } from "lucide-react";
 const UserProfile = () => {
   const [userData, setUserData] = useState(null);
   const [gitData, setGitData] = useState(null);
@@ -68,7 +68,9 @@ const UserProfile = () => {
             />
           </div>
         ) : (
-          <p className="text-white text-center mt-5">Loading user data...</p>
+          <div className="w-screen h-screen flex justify-center items-center">
+              <p className="text-white text-center mt-5 animate-spin"><Loader2 color="white" size={50}/></p>
+          </div>
         )}
       </div>
     </>
