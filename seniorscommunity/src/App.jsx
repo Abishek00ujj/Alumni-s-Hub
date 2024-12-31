@@ -5,6 +5,7 @@ import Signin from './components/Signin'
 import Main from './components/Main'
 import Profile from './components/Profile'
 import UserProfile from './components/UserProfile'
+import Home from './pages/Home'
 const App = () => {
   return (
     <>
@@ -15,6 +16,7 @@ const App = () => {
         <Route path={"/development"} element={<Main/>}/>
         <Route path={'/profile'} element={<Profile/>}/>
         <Route path={'/userprofile'} element={<UserProfile/>}/>
+        <Route path={'/home'} element={<Home/>}/>
     </Routes>
     </BrowserRouter>
     </>

@@ -152,7 +152,7 @@ const RootPage = () => {
     }
     if(localStorage.getItem('completeUser'))
       {
-          navigate('/userprofile');
+          navigate('/home');
       }
   return (
     <>

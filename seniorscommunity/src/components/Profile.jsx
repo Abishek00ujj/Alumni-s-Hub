@@ -49,7 +49,7 @@ const Profile = () => {
 
       if (res.status === 200) {
         localStorage.setItem("userData", JSON.stringify(obj));
-        navigate("/userprofile");
+        navigate("/home");
         localStorage.setItem("completeUser", JSON.stringify(res.data));
       }
     } catch (error) {
@@ -73,7 +73,7 @@ const Profile = () => {
 
         if (res.status === 200) {
           localStorage.setItem("completeUser", JSON.stringify(res.data));
-          navigate("/userprofile");
+          navigate("/home");
         }
       } catch (error) {
         console.error("Error fetching data:", error.message);
