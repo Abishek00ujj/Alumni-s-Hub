@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
-import { Loader2, Linkedin, Github, Code,Mail } from "lucide-react";
-import {Gitdata,Setgitdata} from '../store'
+import { Loader2, Linkedin, Github, Code, Mail } from "lucide-react";
+import { Gitdata, Setgitdata } from '../store'
 const UserProfile = () => {
   const [userData, setUserData] = useState(null);
   const [gitData, setGitData] = useState(null);
@@ -62,7 +62,7 @@ const UserProfile = () => {
             />
             <p>{gitData.name}</p>
             <p>{gitData.bio}</p>
-            <p className="flex w-full justify-center">
+            <p className="flex w-full justify-center max-2xl:justify-start">
               Website:{" "}
               <a href={gitData.blog} target="_blank" rel="noopener noreferrer">
                 {gitData.blog}
@@ -70,28 +70,28 @@ const UserProfile = () => {
             </p>
             <div className="w-full flex justify-start space-x-5 ">
               <div className="w-full flex justify-start space-x-5">
-              <a href={linkedinUrl} target="_blank">
-                <div className="w-10 h-10 bg-white flex justify-center items-center rounded-full border">
-                  <Linkedin color="blue" fill="white" />
-                </div>
-              </a>
-              <a href={githubUrl} target="_blank">
-                <div className="w-10 h-10 bg-white flex justify-center items-center rounded-full border">
-                  <Github color="" fill="black" />
-                </div>
-              </a>
-              <a href={leetcodeUrl} target="_blank">
-                <div className="w-10 h-10 bg-white flex justify-center items-center rounded-full border">
-                  <Code color="orange" />
-                </div>
-              </a>
+                <a href={linkedinUrl} target="_blank">
+                  <div className="w-10 h-10 bg-white flex justify-center items-center rounded-full border">
+                    <Linkedin color="blue" fill="white" />
+                  </div>
+                </a>
+                <a href={githubUrl} target="_blank">
+                  <div className="w-10 h-10 bg-white flex justify-center items-center rounded-full border">
+                    <Github color="" fill="black" />
+                  </div>
+                </a>
+                <a href={leetcodeUrl} target="_blank">
+                  <div className="w-10 h-10 bg-white flex justify-center items-center rounded-full border">
+                    <Code color="orange" />
+                  </div>
+                </a>
               </div>
               <div>
-              <a href={"mailto:"+userDetails.Email} type="mailto" target="_blank">
-                <div className="w-10 h-10 bg-white flex justify-center items-center rounded-full border">
-                  <Mail color="blue" fill="white" />
-                </div>
-              </a>
+                <a href={"mailto:" + userDetails.Email} type="mailto" target="_blank">
+                  <div className="w-10 h-10 bg-white flex justify-center items-center rounded-full border">
+                    <Mail color="blue" fill="white" />
+                  </div>
+                </a>
               </div>
             </div>
           </div>
@@ -100,10 +100,18 @@ const UserProfile = () => {
           <div className="w-full h-full flex justify-center items-center flex-col space-y-5">
             <p className="text-2xl text-white">Total problems solved!</p>
             <img
-              src={`https://leetcard.jacoblin.cool/${userData.Leetcode}?theme=dark`}
+              src={`https://leetcard.jacoblin.cool/${userData.Leetcode}?theme=dark&font=Nunito&ext=heatmap`}
               alt="Leetcode stats"
             />
             <h2 className="text-2xl text-white">GitHub stats 🎉</h2>
+            <div className="w-full flex justify-center items-center">
+              <iframe
+                className="max-2xl:w-[90vw] w-[500px] border rounded-md"
+                src={`https://ghchart.rshah.org/${userData.Github}`}
+                title="GitHub Heatmap"
+              />
+            </div>
+
             <img
               src={`https://streak-stats.demolab.com/?user=${userData.Github}&count_private=true&theme=react`}
               alt="GitHub streak stats"
