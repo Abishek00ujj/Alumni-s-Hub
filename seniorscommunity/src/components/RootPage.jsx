@@ -17,16 +17,16 @@ const RootPage = () => {
   const [userdata, setUserdata] = useState(false);
   const emailref = useRef(null);
   const [Redirect,SetRedirect]=useState(false);
-
+  const [datu,setdatu]=useState(null);
   const [correct,Setcorrect]=useState(false);
-  let userData=''
   const handleChangeOTP = (newOTP) => {
+    console.log(datu);
     setOtp(newOTP);
     if (newOTP === generatedOtp) {
       console.log("Correct OTP!");
-      const sendData=async(userData)=>{
+      const sendData=async(datu)=>{
         try {
-          const res1= await axios.post('http://localhost:5000/api/v1/addUser',userData);
+          const res1= await axios.post('http://localhost:5000/api/v1/addUser',datu);
           if(res1.status==201)
           {
            const notify = () => toast('Signed up successfully!');
@@ -35,12 +35,12 @@ const RootPage = () => {
            Setcorrect(true);
           }
         } catch (error) {
-          console.log(userData);
+          console.log(datu);
           const notify = () => toast('error!');
           notify();
         }
       }
-      sendData(userData);
+      sendData(datu);
     } else {
       console.log("Incorrect OTP.");
     }
@@ -99,13 +99,14 @@ const RootPage = () => {
     let x1 = Name.charAt(Name.length - 1);
     Name = Name.slice(0, -1) + " " + x1;
 
-   userData = {
+  const userData = {
       Name: Name.toUpperCase(),
       Email: email,
       Year: year,
       Department: Department.toUpperCase(),
     };
     console.log(userData);
+    setdatu(userData);
     localStorage.setItem('data',JSON.stringify(userData));
     console.log(JSON.parse(localStorage.getItem('data')));
     setUserdata(userData);
