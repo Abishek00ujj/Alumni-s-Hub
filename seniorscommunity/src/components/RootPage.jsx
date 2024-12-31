@@ -113,7 +113,7 @@ const RootPage = () => {
   };
   const sendMail = async (email,Name) => {
     try {
-      const response = await fetch("https://alumni-s-hub.onrender.com/generate-otp", {
+      const response = await fetch("http://localhost:5000/generate-otp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
