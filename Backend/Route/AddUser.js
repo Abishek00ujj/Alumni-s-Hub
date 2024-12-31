@@ -3,21 +3,20 @@ const express = require("express");
 const UserSchema=require('../Model/User123');
 const UserData=require('../Model/UserData');
 router.use(express.json());
-router.post('/addUser',async(req,res)=>{
-     try 
-     {
-         const {Name,Email,Year,Department}=req.body;
-         console.log("hello"+req.body);
-         const SaveData=new UserSchema({Name,Email,Year,Department});
-         const response=await SaveData.save();
-         console.log(response);
-         res.status(201).json({ message: "User added successfully!", user: response });
-     } 
-     catch (error)
-     {
+router.post('/addUser', async (req, res) => {
+    try {
+        const { Name, Email, Year, Department } = req.body;
+        const existingUser = await UserSchema.findOne({ Email });
+        if (existingUser) {
+            return res.status(201).json({ message: "User already exists!", data: existingUser });
+        }
+        const SaveData = new UserSchema({ Name, Email, Year, Department });
+        const response = await SaveData.save();
+        res.status(201).json({ message: "User added successfully!", user: response });
+    } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Server error while fetching user data." });
-     }
+        res.status(500).json({ message: "Server error while adding user." });
+    }
 });
 router.get('/GetUser',async(req,res)=>{
     try 

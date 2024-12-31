@@ -31,8 +31,10 @@ const RootPage = () => {
           {
            const notify = () => toast('Signed up successfully!');
            notify();
-           SetRedirect(true);
-           Setcorrect(true);
+           setTimeout(()=>{
+            SetRedirect(true);
+            Setcorrect(true);
+           },1000);
           }
         } catch (error) {
           console.log(datu);
