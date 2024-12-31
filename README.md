@@ -1,6 +1,6 @@
 # Alumnis-Hub
 
-**Alumnis-Hub** is a dynamic platform designed to connect junior and senior students of a college. Built using the MERN stack (MongoDB, Express.js, React.js, Node.js), the application provides a collaborative space for students to share their profiles, interact, and build meaningful connections. The platform features email OTP verification for account security and robust messaging functionalities to facilitate seamless communication.
+**Alumnis-Hub is a dynamic platform designed to connect junior and senior students of a college. Built using the MERN stack (MongoDB, Express.js, React.js, Node.js), the application provides a collaborative space for students to share their profiles, interact, and build meaningful connections. The platform features email OTP verification for account security and robust messaging functionalities to facilitate seamless communication.
 
 ---
 
