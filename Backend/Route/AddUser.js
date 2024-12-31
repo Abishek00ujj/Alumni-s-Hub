@@ -14,7 +14,8 @@ router.post('/addUser',async(req,res)=>{
      } 
      catch (error)
      {
-        
+        console.error(error);
+        res.status(500).json({ message: "Server error while fetching user data." });
      }
 });
 router.get('/GetUser',async(req,res)=>{
@@ -50,7 +51,8 @@ router.post('/addData',async(req,res)=>{
    }
    catch (error)
    {
-    
+    console.error(error);
+    res.status(500).json({ message: "Server error while fetching user data." });
    }
 });
 
@@ -68,7 +70,26 @@ router.post('/getData',async(req,res)=>{
         res.status(209).json({message:"Data not available"});
     }
     } catch (error) {
-        
+        console.error(error);
+        res.status(500).json({ message: "Server error while fetching user data." });
+    }
+})
+router.post('/GetUserdata',async(req,res)=>{
+    const {id}=req.body;
+    console.log("Received ID:", id); 
+    try {
+        const data=await UserSchema.findOne({id});
+    if(data)
+    {
+        res.status(200).json({message:"user data fetched",data:data});
+    }
+    else
+    {
+        res.status(209).json({message:"Data not available"});
+    }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error while fetching user data." });
     }
 })
 

@@ -1,14 +1,21 @@
 import {ChevronDown,ChevronUp,UserCircleIcon} from 'lucide-react'
 import { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
-
+import {Gitdata,Setgitdata} from '../store'
 export const Navbar = () => {
   const [downbar,setDownbar]=useState(false);
   const [user,setuser]=useState(false);
+  const [image, setImage] = useState('');
+  // let image=''
   useEffect(()=>{
     if(localStorage.getItem('completeUser'))
       {
         setuser(true);
+      }
+      if(Gitdata())
+      {
+        setImage(Gitdata().avatar_url);
+        console.log(Gitdata().avatar_url);
       }
   },[]);
   const handleDownbar=()=>{
@@ -22,6 +29,7 @@ export const Navbar = () => {
     }
   }
   let UserData=localStorage.getItem('data');
+
   return (
      <>
         <div className='w-screen h-[8vh] bg-blue-950 flex space-x-4 justify-between p-2'>
@@ -41,7 +49,7 @@ export const Navbar = () => {
                   <>
                   {
                     user?(
-                      <Link to={'/userprofile'}> <div className=' rounded-full p-3 text-white font-bold flex hover:text-orange'><UserCircleIcon size={40}/></div></Link>
+                        <Link to={'/userprofile'}> <div className=' rounded-full p-3 text-white font-bold flex hover:text-orange'><img className='w-10 h-10 rounded-full border-2 border-white' src={image} alt="" /></div></Link>
                     ):(
                       <Link to={'/Profile'}> <div className=' rounded-full p-3 text-white font-bold flex hover:text-orange'><UserCircleIcon size={40}/></div></Link>
                     )

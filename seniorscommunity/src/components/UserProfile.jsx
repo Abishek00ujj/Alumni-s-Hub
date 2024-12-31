@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
-
+import {Gitdata,Setgitdata} from '../store'
 const UserProfile = () => {
   const [userData, setUserData] = useState(null);
   const [gitData, setGitData] = useState(null);
-
+  const [userdata,setuserdata]=useState(null);
   const fetchGitHubData = async (githubUsername) => {
     try {
       const res = await axios.get(
@@ -14,6 +14,8 @@ const UserProfile = () => {
       );
       if (res.status === 200) {
         setGitData(res.data);
+        Setgitdata(res.data);
+        console.log(Gitdata());
       }
     } catch (error) {
       console.error("Error fetching GitHub data:", error.message);
@@ -25,6 +27,11 @@ const UserProfile = () => {
       if(localStorage.getItem("completeUser"))
       {
         const storedData = JSON.parse(localStorage.getItem("completeUser"));
+        const userData1=JSON.parse(localStorage.getItem("completeUser"));
+        if(userData1)
+        {
+          setuserdata(userData1);
+        }
         if (storedData) {
           setUserData(storedData.data);
           fetchGitHubData(storedData.data.Github);
@@ -42,6 +49,7 @@ const UserProfile = () => {
       console.error("Error retrieving user data:", error.message);
     }
   }, []);
+  console.log(userdata);
 
   return (
     <>
@@ -49,7 +57,7 @@ const UserProfile = () => {
       <div className="w-screen bg-black flex flex-col space-y-5">
         {gitData && (
           <div className="w-full h-auto text-white flex flex-col justify-center items-center rounded-lg border border-white bg-[#121212] mt-5 mb-2">
-            <p className="w-full flex justify-center text-2xl">
+            <p className="w-full flex justify-center text-2xl max-2xl:justify-start">
               Username: {gitData.login}
             </p>
             <img
@@ -59,7 +67,7 @@ const UserProfile = () => {
             />
             <p>{gitData.name}</p>
             <p>{gitData.bio}</p>
-            <p>
+            <p className="flex w-full justify-center max-2xl:justify-start">
               Website:{" "}
               <a href={gitData.blog} target="_blank" rel="noopener noreferrer">
                 {gitData.blog}

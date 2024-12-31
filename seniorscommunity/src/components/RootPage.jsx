@@ -3,6 +3,9 @@ import { Navbar } from './Navbar'
 import Abi from '../assets/abi.png'
 import Otpbox from './Otpbox'
 import {useNavigate} from 'react-router-dom'
+import axios from 'axios'
+import toast, { Toaster } from 'react-hot-toast';
+
 const RootPage = () => {
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
@@ -16,12 +19,28 @@ const RootPage = () => {
   const [Redirect,SetRedirect]=useState(false);
 
   const [correct,Setcorrect]=useState(false);
+  let userData=''
   const handleChangeOTP = (newOTP) => {
     setOtp(newOTP);
     if (newOTP === generatedOtp) {
       console.log("Correct OTP!");
-      SetRedirect(true);
-      Setcorrect(true);
+      const sendData=async(userData)=>{
+        try {
+          const res1= await axios.post('http://localhost:5000/api/v1/addUser',userData);
+          if(res1.status==201)
+          {
+           const notify = () => toast('Signed up successfully!');
+           notify();
+           SetRedirect(true);
+           Setcorrect(true);
+          }
+        } catch (error) {
+          console.log(userData);
+          const notify = () => toast('error!');
+          notify();
+        }
+      }
+      sendData(userData);
     } else {
       console.log("Incorrect OTP.");
     }
@@ -80,7 +99,7 @@ const RootPage = () => {
     let x1 = Name.charAt(Name.length - 1);
     Name = Name.slice(0, -1) + " " + x1;
 
-    const userData = {
+   userData = {
       Name: Name.toUpperCase(),
       Email: email,
       Year: year,
@@ -156,6 +175,7 @@ const RootPage = () => {
       }
   return (
     <>
+     <Toaster />
       <Navbar />
       <div className='w-screen h-screen justify-center items-center flex min-2xl:flex max-lg:flex-col max-2xl:justify-between'>
         <div className=' bg-violet-600 w-full min-h-screen flex flex-col space-y-5 justify-center items-center'>
