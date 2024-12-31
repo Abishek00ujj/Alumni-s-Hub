@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
-import { Loader2 } from "lucide-react";
+import { Loader2, Linkedin, Github, Code,Mail } from "lucide-react";
 import {Gitdata,Setgitdata} from '../store'
 const UserProfile = () => {
   const [userData, setUserData] = useState(null);
   const [gitData, setGitData] = useState(null);
-  const [userdata,setuserdata]=useState(null);
+  const [userDetails, setUserDetails] = useState(null);
+
   const fetchGitHubData = async (githubUsername) => {
     try {
-      const res = await axios.get(
-        `https://api.github.com/users/${githubUsername}`
-      );
+      const res = await axios.get(`https://api.github.com/users/${githubUsername}`);
       if (res.status === 200) {
         setGitData(res.data);
         Setgitdata(res.data);
-        console.log(Gitdata());
       }
     } catch (error) {
       console.error("Error fetching GitHub data:", error.message);
@@ -24,42 +22,39 @@ const UserProfile = () => {
 
   useEffect(() => {
     try {
-      if(localStorage.getItem("completeUser"))
-      {
-        const storedData = JSON.parse(localStorage.getItem("completeUser"));
-        const userData1=JSON.parse(localStorage.getItem("completeUser"));
-        if(userData1)
-        {
-          setuserdata(userData1);
-        }
-        if (storedData) {
-          setUserData(storedData.data);
-          fetchGitHubData(storedData.data.Github);
+      const storedUserDetails = JSON.parse(localStorage.getItem("data"));
+      setUserDetails(storedUserDetails);
+
+      const completeUser = JSON.parse(localStorage.getItem("completeUser"));
+      if (completeUser) {
+        setUserData(completeUser.data);
+        fetchGitHubData(completeUser.data.Github);
+      } else {
+        const basicUserData = JSON.parse(localStorage.getItem("userData"));
+        if (basicUserData) {
+          setUserData(basicUserData);
+          fetchGitHubData(basicUserData.Github);
         }
       }
-      else
-      {
-      const storedData = JSON.parse(localStorage.getItem("userData"));
-      if (storedData) {
-        setUserData(storedData);
-        fetchGitHubData(storedData.Github);
-      }
-    }
     } catch (error) {
       console.error("Error retrieving user data:", error.message);
     }
   }, []);
-  console.log(userdata);
+
+  const githubUrl = userData ? `https://github.com/${userData.Github}/` : "#";
+  const leetcodeUrl = userData ? `https://leetcode.com/u/${userData.Leetcode}/` : "#";
+  const linkedinUrl = userData?.Linkedin || "#";
 
   return (
     <>
       <Navbar />
       <div className="w-screen bg-black flex flex-col space-y-5">
         {gitData && (
-          <div className="w-full h-auto text-white flex flex-col justify-center items-center rounded-lg border border-white bg-[#121212] mt-5 mb-2">
-            <p className="w-full flex justify-center text-2xl max-2xl:justify-start">
-              Username: {gitData.login}
-            </p>
+          <div className="w-full h-auto text-white flex flex-col justify-center items-center rounded-lg border border-white bg-[#121212] mt-5 mb-2 space-y-3 p-4">
+            <div className="w-full flex justify-between text-2xl max-2xl:flex-col">
+              <p>{userDetails?.Name}</p>
+              <p>{`${userDetails?.Year} - ${userDetails?.Department} 🎓`}</p>
+            </div>
             <img
               src={gitData.avatar_url}
               className="w-[200px] h-[200px] rounded-full"
@@ -67,12 +62,38 @@ const UserProfile = () => {
             />
             <p>{gitData.name}</p>
             <p>{gitData.bio}</p>
-            <p className="flex w-full justify-center max-2xl:justify-start">
+            <p className="flex w-full justify-center">
               Website:{" "}
               <a href={gitData.blog} target="_blank" rel="noopener noreferrer">
                 {gitData.blog}
               </a>
             </p>
+            <div className="w-full flex justify-start space-x-5 ">
+              <div className="w-full flex justify-start space-x-5">
+              <a href={linkedinUrl} target="_blank">
+                <div className="w-10 h-10 bg-white flex justify-center items-center rounded-full border">
+                  <Linkedin color="blue" fill="white" />
+                </div>
+              </a>
+              <a href={githubUrl} target="_blank">
+                <div className="w-10 h-10 bg-white flex justify-center items-center rounded-full border">
+                  <Github color="" fill="black" />
+                </div>
+              </a>
+              <a href={leetcodeUrl} target="_blank">
+                <div className="w-10 h-10 bg-white flex justify-center items-center rounded-full border">
+                  <Code color="orange" />
+                </div>
+              </a>
+              </div>
+              <div>
+              <a href={"mailto:"+userDetails.Email} type="mailto" target="_blank">
+                <div className="w-10 h-10 bg-white flex justify-center items-center rounded-full border">
+                  <Mail color="blue" fill="white" />
+                </div>
+              </a>
+              </div>
+            </div>
           </div>
         )}
         {userData ? (
@@ -87,14 +108,18 @@ const UserProfile = () => {
               src={`https://streak-stats.demolab.com/?user=${userData.Github}&count_private=true&theme=react`}
               alt="GitHub streak stats"
             />
-            <img src={`https://github-readme-stats.vercel.app/api?username=${userData.Github}&show_icons=true&theme=react&rank_icon=github&border_radius=10" alt="readme stats`}/>
-            <img  align={`center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=${userData.Github}&hide=HTML&langs_count=8&layout=compact&theme=react&border_radius=10&size_weight=0.5&count_weight=0.5&exclude_repo=github-readme-stats" alt="top langs`} />
+            <img
+              src={`https://github-readme-stats.vercel.app/api?username=${userData.Github}&show_icons=true&theme=react&rank_icon=github&border_radius=10`}
+              alt="readme stats"
+            />
+            <img
+              src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${userData.Github}&hide=HTML&langs_count=8&layout=compact&theme=react&border_radius=10`}
+              alt="top languages"
+            />
           </div>
         ) : (
           <div className="w-screen h-screen flex justify-center items-center">
-            <p className="text-white text-center mt-5 animate-spin">
-              <Loader2 color="white" size={50} />
-            </p>
+            <Loader2 className="text-white animate-spin" size={50} />
           </div>
         )}
       </div>
