@@ -3,7 +3,11 @@ import Navbar from "./Navbar";
 import axios from "axios";
 import { Loader2, Linkedin, Github, Code, Mail } from "lucide-react";
 import { Gitdata, Setgitdata } from '../store'
+import { useReactToPrint } from "react-to-print";
+import { useRef } from "react";
 const UserProfile = () => {
+  const contentRef = useRef(null);
+const reactToPrintFn = useReactToPrint({ contentRef });
   const [userData, setUserData] = useState(null);
   const [gitData, setGitData] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
@@ -48,7 +52,7 @@ const UserProfile = () => {
   return (
     <>
       <Navbar />
-      <div className="w-screen bg-black flex flex-col space-y-5">
+      <div ref={contentRef} className="w-screen bg-black flex flex-col space-y-5 pb-10">
         {gitData && (
           <div className="w-full h-auto text-white flex flex-col justify-center items-center rounded-lg border border-white bg-[#121212] mt-5 mb-2 space-y-3 p-4">
             <div className="w-full flex justify-between text-2xl max-2xl:flex-col">
@@ -124,6 +128,9 @@ const UserProfile = () => {
               src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${userData.Github}&hide=HTML&langs_count=8&layout=compact&theme=react&border_radius=10`}
               alt="top languages"
             />
+            <div className="w-full h-10 flex justify-center items-center mb-5">
+            <button className="bg-orange-500 pl-10 pr-10 pt-3 pb-3  text-white rounded-lg" onClick={() => reactToPrintFn()}>Print</button>
+            </div>
           </div>
         ) : (
           <div className="w-screen h-screen flex justify-center items-center">
