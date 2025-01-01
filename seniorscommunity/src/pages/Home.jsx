@@ -44,7 +44,7 @@ const Home = () => {
 // Year: "22"
 // ( item.Department.toLowerCase().includes(batch.toLowerCase()) ||
 // item.Year.toLowerCase().includes(year.toLowerCase()))
-  console.log(users);
+  // console.log(users);
   return (
     <>
     <Navbar/>
