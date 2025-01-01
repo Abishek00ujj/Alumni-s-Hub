@@ -63,13 +63,7 @@ export const Navbar = () => {
       {downbar && (
         <div className='w-[500px] h-auto flex flex-col bg-slate-600 absolute right-0 z-50'>
           <div className='h-10 border-2 border-white p-3 text-center justify-center items-center flex text-white bg-zinc-800'>
-            Sign up
-          </div>
-          <div className='h-10 border-2 border-white p-3 text-center justify-center items-center flex text-white bg-zinc-800'>
             Blogs
-          </div>
-          <div className='h-10 border-2 border-white p-3 text-center justify-center items-center flex text-white bg-zinc-800'>
-            Contact us
           </div>
           <div className='h-10 border-2 border-white p-3 text-center justify-center items-center flex text-white bg-zinc-800'>
             About us

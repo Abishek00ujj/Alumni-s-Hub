@@ -12,6 +12,14 @@ const UserData=new mongoose.Schema({
     },
     Github:{
         type:String,
+    },
+    Followers:{
+        type:[String],
+        default:[]
+    },
+    Following:{
+        type:[String],
+        default:[]
     }
 });
 module.exports=mongoose.model('UserData123',UserData);

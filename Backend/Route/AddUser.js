@@ -93,4 +93,10 @@ router.post('/GetUserdata',async(req,res)=>{
     }
 })
 
+
+router.put('/follow',async(req,res)=>{
+    const {id1,id2}=req.body;
+    const response=await UserData.findOneAndUpdate
+})
+
 module.exports = router;
