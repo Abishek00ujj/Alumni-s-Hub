@@ -14,7 +14,7 @@ const Home = () => {
     const getData=async()=>{
       setLoading(true);
       try{
-      const response=await axios.get('http://localhost:5000/api/v1/GetUser');
+      const response=await axios.get('https://alumni-s-hub.onrender.com/api/v1/GetUser');
       if(response.data)
       {
         setUsers(response.data.data);
