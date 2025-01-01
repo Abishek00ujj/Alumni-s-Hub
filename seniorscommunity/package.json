@@ -16,6 +16,7 @@
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.28.0",
+    "react-share": "^5.1.2",
     "react-to-print": "^3.0.4",
     "seniorscommunity": "file:"
   },
