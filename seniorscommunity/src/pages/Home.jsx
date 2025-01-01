@@ -7,9 +7,9 @@ import StudCard from '../components/StudCard';
 const Home = () => {
   const [users,setUsers]=useState([]);
   const [loading,setLoading]=useState(false);
-  const serachRef=useRef(null);
-  const yearRef=useRef(null);
-  const departRef=useRef(null);
+  const [year,setyear]=useState('');
+  const [batch,setbatch]=useState('');
+  const [searchQuery,setsearchQuery]=useState('');
   useEffect(()=>{
     const getData=async()=>{
       setLoading(true);
@@ -18,7 +18,6 @@ const Home = () => {
       if(response.data)
       {
         setUsers(response.data.data);
-        // console.log(users.data);
       }
     }
     catch(err)
@@ -31,6 +30,21 @@ const Home = () => {
     }
     getData();
   },[]);
+  const filterData=users.filter((item)=>(
+    item.Name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+    (batch==''||item.Department==batch) &&
+    (year==''||item.Year==year)
+  ))
+//Department: "IT"
+// ​​
+// Email: "abisheks22it@srishakthi.ac.in"
+// ​​
+// Name: "ABISHEK S"
+// ​​
+// Year: "22"
+// ( item.Department.toLowerCase().includes(batch.toLowerCase()) ||
+// item.Year.toLowerCase().includes(year.toLowerCase()))
+  console.log(users);
   return (
     <>
     <Navbar/>
@@ -47,15 +61,24 @@ const Home = () => {
        <>
        <div className='w-screen h-screen bg-[#121212]'>
         <div className='w-full flex justify-center items-center pt-4 space-x-2'>
-           <input type="text" placeholder='Search by Name or Batch or Department' className='max-2xl:w-[50%] w-[500px] pt-2 pb-2 rounded-lg text-start p-2 font-bold'/>
-           <select className='text-center text-[22px] w-[80px] h-[45px] rounded-lg' name="BATCH" id="">
+           <input type="text" placeholder='Search by Name or Batch or Department' className='max-2xl:w-[50%] w-[500px] pt-2 pb-2 rounded-lg text-start p-2 font-bold'
+           onChange={(e)=>setsearchQuery(e.target.value)}
+           value={searchQuery}
+           />
+           <select className='text-center text-[22px] w-[80px] h-[45px] rounded-lg' name="BATCH" id=""
+           value={year}
+           onChange={(e)=>setyear(e.target.value)}>
+           <option value="">Year</option>
             <option value="20">20</option>
             <option value="21">21</option>
             <option value="22">22</option>
             <option value="23">23</option>
             <option value="24">24</option>
            </select>
-           <select className='text-center text-[22px] w-[80px] h-[45px] rounded-lg' name="" id="">
+           <select className='text-center text-[20px] w-[80px] h-[45px] rounded-lg' name="" id=""
+            value={batch}
+            onChange={(e)=>setbatch(e.target.value)}>
+           <option value="">Branch</option>
            <option  value="IT">IT</option>
             <option  value="DS">DS</option>
             <option value="ECE">ECE</option>
@@ -71,10 +94,10 @@ const Home = () => {
             <option value="MECH">MECH</option>
            </select>
         </div>
-        <div className='w-full h-full space-y-3 items-center flex flex-col'>
+        <div className='w-full h-full space-y-3 justify-evenly max-2xl:items-center flex max-2xl:flex-col'>
           {
-            users&& (
-              users.map((item, index) => (
+            filterData&& (
+              filterData.map((item, index) => (
                 <StudCard key={item.Email} props={item} />
               ))
             )

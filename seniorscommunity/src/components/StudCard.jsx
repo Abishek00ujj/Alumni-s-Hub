@@ -7,7 +7,7 @@ const StudCard = (props) => {
     const navigate=useNavigate();
   const [gitData, setGitData] = useState(null);
   const [data, setData] = useState(null);
-  console.log(props);
+  // console.log(props);
   const sendProps=()=>{
     navigate('/profilecard/',{state:{data:{
         githubdata:gitData,

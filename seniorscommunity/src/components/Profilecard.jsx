@@ -17,7 +17,7 @@ const Profilecard = () => {
 
     const location=useLocation();
     const {data}=location.state || {};
-    console.log(data);
+    // console.log(data);
     const contentRef = useRef(null);
 const reactToPrintFn = useReactToPrint({ contentRef });
   const githubUrl = data ? `https://github.com/${data.userdata.Github}/` : "#";
