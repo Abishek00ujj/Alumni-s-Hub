@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Loader2Icon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import profile from '../assets/profile.png'
 const StudCard = (props) => {
     const navigate=useNavigate();
   const [gitData, setGitData] = useState(null);
@@ -55,7 +56,7 @@ const StudCard = (props) => {
       <div className="w-full flex justify-center items-center">
         {gitData ? (
           <img
-            src={gitData.avatar_url}
+            src={gitData.avatar_url||profile}
             alt={`${data?.Github}'s Avatar`}
             className="w-40 h-40 rounded-full"
           />
