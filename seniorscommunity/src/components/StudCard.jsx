@@ -27,7 +27,7 @@ const StudCard = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post('http://localhost:5000/api/v1/getData', { id: props.props.Email });
+        const response = await axios.post('https://alumni-s-hub.onrender.com/api/v1/getData', { id: props.props.Email });
         if (response.status === 200) {
           setData(response.data.data);
         }

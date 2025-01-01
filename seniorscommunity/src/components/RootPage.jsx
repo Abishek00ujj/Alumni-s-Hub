@@ -26,7 +26,7 @@ const RootPage = () => {
       console.log("Correct OTP!");
       const sendData=async(datu)=>{
         try {
-          const res1= await axios.post('http://localhost:5000/api/v1/addUser',datu);
+          const res1= await axios.post('https://alumni-s-hub.onrender.com/api/v1/addUser',datu);
           if(res1.status==201)
           {
            const notify = () => toast('Signed up successfully!');
