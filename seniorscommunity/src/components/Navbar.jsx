@@ -61,7 +61,7 @@ export const Navbar = () => {
         </div>
       </div>
       {downbar && (
-        <div className='w-[500px] h-auto flex flex-col bg-slate-600 absolute right-0'>
+        <div className='w-[500px] h-auto flex flex-col bg-slate-600 absolute right-0 z-50'>
           <div className='h-10 border-2 border-white p-3 text-center justify-center items-center flex text-white bg-zinc-800'>
             Sign up
           </div>

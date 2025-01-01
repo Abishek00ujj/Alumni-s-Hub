@@ -11,7 +11,7 @@ import {
 import {
   WhatsappIcon,
 } from "react-share";
-const shareUrl="https://alumni-s-hub.vercel.app";
+const shareUrl=window.location.href;
 const UserProfile = () => {
   const contentRef = useRef(null);
 const reactToPrintFn = useReactToPrint({ contentRef });

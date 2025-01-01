@@ -6,6 +6,7 @@ import Main from './components/Main'
 import Profile from './components/Profile'
 import UserProfile from './components/UserProfile'
 import Home from './pages/Home'
+import Profilecard from './components/Profilecard'
 const App = () => {
   return (
     <>
@@ -16,6 +17,7 @@ const App = () => {
         <Route path={"/development"} element={<Main/>}/>
         <Route path={'/profile'} element={<Profile/>}/>
         <Route path={'/userprofile'} element={<UserProfile/>}/>
+        <Route path={'/profilecard'} element={<Profilecard/>}/>
         <Route path={'/home'} element={<Home/>}/>
     </Routes>
     </BrowserRouter>
