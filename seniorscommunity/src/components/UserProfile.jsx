@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
-import { Loader2, Linkedin, Github, Code, Mail } from "lucide-react";
+import { Loader2, Linkedin, Github, Code, Mail,UsersRound} from "lucide-react";
 import { Gitdata, Setgitdata } from '../store'
 import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
@@ -18,7 +18,9 @@ const reactToPrintFn = useReactToPrint({ contentRef });
   const [userData, setUserData] = useState(null);
   const [gitData, setGitData] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
-
+  const [follower,setFollowers]=useState(null);
+  const [following,setFollowing]=useState(null);
+  // console.log(userData.id);
   const fetchGitHubData = async (githubUsername) => {
     try {
       const res = await axios.get(`https://api.github.com/users/${githubUsername}`);
@@ -32,25 +34,38 @@ const reactToPrintFn = useReactToPrint({ contentRef });
   };
 
   useEffect(() => {
-    try {
-      const storedUserDetails = JSON.parse(localStorage.getItem("data"));
-      setUserDetails(storedUserDetails);
-
-      const completeUser = JSON.parse(localStorage.getItem("completeUser"));
-      if (completeUser) {
-        setUserData(completeUser.data);
-        fetchGitHubData(completeUser.data.Github);
-      } else {
-        const basicUserData = JSON.parse(localStorage.getItem("userData"));
-        if (basicUserData) {
-          setUserData(basicUserData);
-          fetchGitHubData(basicUserData.Github);
-        }
+    const storedUserDetails = JSON.parse(localStorage.getItem("data"));
+    setUserDetails(storedUserDetails);
+  
+    const completeUser = JSON.parse(localStorage.getItem("completeUser"));
+    if (completeUser) {
+      setUserData(completeUser.data);
+      fetchGitHubData(completeUser.data.Github);
+    } else {
+      const basicUserData = JSON.parse(localStorage.getItem("userData"));
+      if (basicUserData) {
+        setUserData(basicUserData);
+        fetchGitHubData(basicUserData.Github);
       }
-    } catch (error) {
-      console.error("Error retrieving user data:", error.message);
     }
   }, []);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!userData?.id) return;
+      try {
+        const response = await axios.post('https://alumni-s-hub.onrender.com/api/v1/getData', { id: userData.id });
+        if (response.status === 200) {
+          console.log("Followers:", response.data.Followers);
+          console.log("Following:", response.data.Following);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, [userData]);
+  
 
   const githubUrl = userData ? `https://github.com/${userData.Github}/` : "#";
   const leetcodeUrl = userData ? `https://leetcode.com/u/${userData.Leetcode}/` : "#";
@@ -59,10 +74,10 @@ const reactToPrintFn = useReactToPrint({ contentRef });
   return (
     <>
       <Navbar />
-      <div ref={contentRef} className="w-screen bg-black flex flex-col space-y-5 pb-10 text-white">
+      <div ref={contentRef} className="w-screen bg-black flex space-y-5 pb-10 text-white justify-center max-2xl:flex-col items-start  max-2xl:items-center">
         {gitData && (
-          <div className="w-full h-auto text-white flex flex-col justify-center items-center rounded-lg border border-white bg-[#121212] mt-5 mb-2 space-y-3 p-4">
-            <div className="w-full flex justify-between text-2xl max-2xl:flex-col">
+          <div className="max-2xl:w-[80%] h-auto text-white flex flex-col justify-center items-center rounded-lg border border-white bg-[#121212] mt-5 mb-2 space-y-4 p-4">
+            <div className="w-full flex justify-between text-2xl">
               <p>{userDetails?.Name}</p>
               <p>{`${userDetails?.Year} - ${userDetails?.Department} 🎓`}</p>
             </div>
@@ -73,12 +88,13 @@ const reactToPrintFn = useReactToPrint({ contentRef });
             />
             <p>{gitData.name}</p>
             <p>{gitData.bio}</p>
-            <p className="flex w-full justify-center max-2xl:justify-start">
+            <p className="flex w-full  max-2xl:justify-start">
               Website:{" "}
               <a href={gitData.blog} target="_blank" rel="noopener noreferrer">
                 {gitData.blog}
               </a>
             </p>
+            <p className="w-full flex space-x-2"><UsersRound/><a href="" className="hover:text-orange-400">followers </a> <p></p> ● <a href="" className="hover:text-orange-400">following</a></p>
             <div className="w-full flex justify-start space-x-5 ">
               <div className="w-full flex justify-start space-x-5">
                 <a href={linkedinUrl} target="_blank">
@@ -135,7 +151,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
               src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${userData.Github}&hide=HTML&langs_count=8&layout=compact&theme=react&border_radius=10`}
               alt="top languages"
             />
-            <div className="w-full h-10 flex justify-center items-center max-2xl:justify-between mb-5 p-5 space-x-5">
+            <div className="w-full h-10 flex  items-center justify-between mb-5 p-5 space-x-5">
             <button className="bg-orange-500 pl-8 pr-8 pt-2 pb-2  text-white rounded-lg" onClick={() => reactToPrintFn()}>Print</button>
             <WhatsappShareButton url={shareUrl} title={"Hey,i am using Alumnis-hub & i am now a member of alumnis-hub,why wont't you join us?"} className="flex justify-center items-center space-x-4">
             <p className=" text-2xl">Share</p><WhatsappIcon size={40} round={true}/>
