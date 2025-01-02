@@ -59,6 +59,7 @@ router.post('/addData',async(req,res)=>{
 
 router.post('/getData',async(req,res)=>{
     const {id}=req.body;
+    console.log(id);
     try {
         const data=await UserData.findOne({id});
     if(data)

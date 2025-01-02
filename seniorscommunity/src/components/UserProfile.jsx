@@ -11,6 +11,10 @@ import {
 import {
   WhatsappIcon,
 } from "react-share";
+
+
+import FollowersPage from './FollowersPage'
+import FollowingPage from './Followingpage'
 const shareUrl=window.location.href;
 const UserProfile = () => {
   const contentRef = useRef(null);
@@ -19,7 +23,32 @@ const reactToPrintFn = useReactToPrint({ contentRef });
   const [gitData, setGitData] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
   const [follower,setFollowers]=useState(null);
-  const [following,setFollowing]=useState(null);
+  const [following,setFollowing]=useState(null); 
+  const [followChange,setfollowChange]=useState(false);
+  const [followerChange,setfollowerChange]=useState(false);
+
+
+  const handleChangeFollow=()=>{
+      if(followChange)
+      {
+        setfollowChange(!followChange);
+      }
+      else
+      {
+        setfollowerChange(!followChange);
+      }
+  }
+
+  const handleChangeFollower=()=>{
+    if(followerChange)
+    {
+      setfollowerChange(!followerChange);
+    }
+    else
+      {
+        setfollowChange(!followChange);
+      }
+}
   // console.log(userData.id);
   const fetchGitHubData = async (githubUsername) => {
     try {
@@ -48,23 +77,28 @@ const reactToPrintFn = useReactToPrint({ contentRef });
         fetchGitHubData(basicUserData.Github);
       }
     }
-  }, []);
-  
-  useEffect(() => {
     const fetchData = async () => {
-      if (!userData?.id) return;
       try {
-        const response = await axios.post('https://alumni-s-hub.onrender.com/api/v1/getData', { id: userData.id });
+        const completeUser = JSON.parse(localStorage.getItem("completeUser"));
+        // console.log(completeUser.data.id);
+        const response = await axios.post('http://localhost:5000/api/v1/getData',{ id:completeUser.data.id});
+        console.log(response.data.data.Following);
         if (response.status === 200) {
-          console.log("Followers:", response.data.Followers);
-          console.log("Following:", response.data.Following);
+          console.log("Followers:", response.data.data.Followers);
+          setFollowers(response.data.data.Followers);
+          console.log("Following:", response.data.data.Following);
+          setFollowing(response.data.data.Following);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-    fetchData();
-  }, [userData]);
+    fetchData(); 
+  }, []);
+  
+  // useEffect(() => {
+   
+  // }, [userData.id]);
   
 
   const githubUrl = userData ? `https://github.com/${userData.Github}/` : "#";
@@ -94,7 +128,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
                 {gitData.blog}
               </a>
             </p>
-            <p className="w-full flex space-x-2"><UsersRound/><a href="" className="hover:text-orange-400">followers </a> <p></p> ● <a href="" className="hover:text-orange-400">following</a></p>
+            <p className="w-full flex space-x-2"><UsersRound/><p onClick={handleChangeFollower} className="hover:text-orange-400">followers </p> <p></p> ● <p onClick={handleChangeFollow} className="hover:text-orange-400">following</p></p>
             <div className="w-full flex justify-start space-x-5 ">
               <div className="w-full flex justify-start space-x-5">
                 <a href={linkedinUrl} target="_blank">
@@ -123,7 +157,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
             </div>
           </div>
         )}
-        {userData ? (
+        {userData  && !followChange && !followerChange? (
           <div className="w-full h-full flex justify-center items-center flex-col space-y-5">
             <p className="text-2xl text-white">Total problems solved!</p>
             <img
@@ -160,7 +194,17 @@ const reactToPrintFn = useReactToPrint({ contentRef });
           </div>
         ) : (
           <div className="w-screen h-screen flex justify-center items-center">
-            <Loader2 className="text-white animate-spin" size={50} />
+            {
+                followChange?(
+                  <>
+                    <FollowersPage props={follower}/>
+                  </>
+                ):(
+                   <>
+                      <FollowingPage props={following}/>
+                   </>
+                )
+            }
           </div>
         )}
       </div>
