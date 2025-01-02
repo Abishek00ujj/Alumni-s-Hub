@@ -64,10 +64,10 @@ const reactToPrintFn = useReactToPrint({ contentRef });
   return (
      <>
           <Navbar />
-          <div ref={contentRef} className="w-screen bg-black flex flex-col space-y-5 pb-10 text-white">
+          <div ref={contentRef} className="w-screen bg-black flex space-y-5 pb-10 text-white justify-center max-2xl:flex-col items-start  max-2xl:items-center">
             {data && (
-              <div className="w-full h-auto text-white flex flex-col justify-center items-center rounded-lg border border-white bg-[#121212] mt-5 mb-2 space-y-3 p-4">
-                <div className="w-full flex justify-between text-2xl max-2xl:flex-col">
+              <div className="max-2xl:w-[80%] h-auto text-white flex flex-col justify-center items-center rounded-lg border border-white bg-[#121212] mt-5 mb-2 space-y-4 p-4">
+                <div className="w-full flex justify-between text-2xl">
                   <p>{data?.acadamicdata.Name}</p>
                   <p>{`${data?.acadamicdata.Year} - ${data?.acadamicdata.Department} 🎓`}</p>
                 </div>

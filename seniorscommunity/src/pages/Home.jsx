@@ -32,6 +32,7 @@ const Home = () => {
     }
     getData();
   },[]);
+  console.log(users);
   const filterData=users.filter((item)=>(item.Name.toLowerCase().includes(searchQuery.toLowerCase())
   &&(item.Email!=storedUserDetails.Email) &&
     (batch==''||item.Department==batch) &&

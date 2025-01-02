@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import Stdimg from "../assets/clgstd.png";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -34,7 +35,12 @@ const Profile = () => {
       if (!userData?.Email) {
         throw new Error("User data is missing!");
       }
-
+       if(!linkedinRef.current.value||!githubRef.current.value||!leetcodeRef.current.value)
+       {
+        const notify = () => toast('Please fill all the details');
+        notify();
+          return;
+       }
       const obj = {
         id: userData.Email,
         Linkedin: linkedinRef.current.value,
@@ -87,6 +93,7 @@ const Profile = () => {
     <>
       {userData ? (
         <>
+          <Toaster />
           <Navbar />
           <div
             className={`w-screen h-screen ${
