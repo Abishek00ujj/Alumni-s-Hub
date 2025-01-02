@@ -12,7 +12,7 @@ export const FollowCard = ({ data: propData }) => {
     {
       setLocalData(response.data);
       setUserdata(response.data.data1);
-      console.log(response.data.data1)
+      // console.log(response.data.data1)
     }
   };
   useEffect(() => {
@@ -33,18 +33,17 @@ export const FollowCard = ({ data: propData }) => {
           console.error("Error fetching GitHub data:", error.message);
         }
       };
-
       fetchGitHubData(localData.data.Github);
     }
   }, [localData]);
 
   return (
     <>
-      <div className='w-full  bg-slate-400 text-white h-auto flex'>
-        <div className='w-full flex items-center'>
+      <div className='w-full  bg-[#121212] p-2 text-white h-auto flex'>
+        <div className='w-full flex items-center space-x-3'>
           <img className='w-[50px] h-[50px] rounded-full'src={gitData ? gitData.avatar_url : ""} alt="GitHub Avatar" />
           <div className='w-full flex flex-col'>
-         <div className='w-full flex justify-between'>
+         <div className='w-full flex justify-between p-2'>
          <p>{Userdata ? Userdata.Name : "Loading GitHub Data..."}</p>
          <p>{Userdata? Userdata.Year+"-"+Userdata.Department : "Loading.."}</p>
          </div>
