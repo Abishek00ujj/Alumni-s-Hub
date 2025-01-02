@@ -62,9 +62,10 @@ router.post('/getData',async(req,res)=>{
     console.log(id);
     try {
         const data=await UserData.findOne({id});
+        const anotherData=await UserSchema.findOne({Email:id});
     if(data)
     {
-        res.status(200).json({message:"Data available",data:data});
+        res.status(200).json({message:"Data available",data:data, data1:anotherData});
     }
     else
     {

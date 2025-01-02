@@ -81,7 +81,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
       try {
         const completeUser = JSON.parse(localStorage.getItem("completeUser"));
         // console.log(completeUser.data.id);
-        const response = await axios.post('http://localhost:5000/api/v1/getData',{ id:completeUser.data.id});
+        const response = await axios.post('https://alumni-s-hub.onrender.com/api/v1/getData',{ id:completeUser.data.id});
         console.log(response.data.data.Following);
         if (response.status === 200) {
           console.log("Followers:", response.data.data.Followers);

@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom'
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
-import { Loader2, Linkedin, Github, Code, Mail } from "lucide-react";
+import { Loader2, Linkedin, Github, Code, Mail,UsersRound } from "lucide-react";
 import { Gitdata, Setgitdata } from '../store'
 import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
@@ -12,17 +12,51 @@ import {
 import {
   WhatsappIcon,
 } from "react-share";
+import FollowersPage from './FollowersPage'
+import FollowingPage from './Followingpage'
 const shareUrl=window.location.href;
 const Profilecard = () => {
-
+  const [follower,setFollowers]=useState(null);
+  const [following,setFollowing]=useState(null); 
     const location=useLocation();
     const {data}=location.state || {};
-    // console.log(data);
     const contentRef = useRef(null);
+      const [followChange,setfollowChange]=useState(false);
+      const [followerChange,setfollowerChange]=useState(false);
+    
+    
+      const handleChangeFollow=()=>{
+          if(followChange)
+          {
+            setfollowChange(!followChange);
+          }
+          else
+          {
+            setfollowerChange(!followChange);
+          }
+      }
+    
+      const handleChangeFollower=()=>{
+        if(followerChange)
+        {
+          setfollowerChange(!followerChange);
+        }
+        else
+          {
+            setfollowChange(!followChange);
+          }
+    }
 const reactToPrintFn = useReactToPrint({ contentRef });
   const githubUrl = data ? `https://github.com/${data.userdata.Github}/` : "#";
   const leetcodeUrl = data ? `https://leetcode.com/u/${data.userdata.Leetcode}/` : "#";
   const linkedinUrl = data?.userdata.Linkedin || "#";
+
+  useEffect(()=>{
+    // console.log(data.userdata.Followers);
+    setFollowers(data.userdata.Followers)
+    // console.log(data.userdata.Following);
+    setFollowing(data.userdata.Following);
+  },[])
   return (
      <>
           <Navbar />
@@ -41,11 +75,11 @@ const reactToPrintFn = useReactToPrint({ contentRef });
                 <p>{data?.githubdata.name}</p>
                 <p>{data?.githubdata.bio}</p>
                 <p className="flex w-full justify-center max-2xl:justify-start">
-                  Website:{" "}
                   <a href={data?.githubdata.blog} target="_blank" rel="noopener noreferrer">
                     {data?.githubdata.blog}
                   </a>
                 </p>
+                <p className="w-full flex space-x-2"><UsersRound/><p onClick={handleChangeFollower} className="hover:text-orange-400">followers </p> <p></p> ● <p onClick={handleChangeFollow} className="hover:text-orange-400">following</p></p>
                 <div className="w-full flex justify-start space-x-5 ">
                   <div className="w-full flex justify-start space-x-5">
                     <a href={linkedinUrl} target="_blank">
@@ -74,7 +108,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
                 </div>
               </div>
             )}
-            {data ? (
+            {data && !followChange && !followerChange? (
               <div className="w-full h-full flex justify-center items-center flex-col space-y-5">
                 <p className="text-2xl text-white">Total problems solved!</p>
                 <img
@@ -111,8 +145,18 @@ const reactToPrintFn = useReactToPrint({ contentRef });
               </div>
             ) : (
               <div className="w-screen h-screen flex justify-center items-center">
-                <Loader2 className="text-white animate-spin" size={50} />
-              </div>
+                          {
+                              followChange?(
+                                <>
+                                  <FollowersPage props={follower}/>
+                                </>
+                              ):(
+                                 <>
+                                    <FollowingPage props={following}/>
+                                 </>
+                              )
+                          }
+                        </div>
             )}
           </div>
         </>

@@ -5,11 +5,11 @@ export const Followingpage = (props) => {
     console.log(data);
     useEffect(()=>setData(props.props),[])
   return (
-    <div className='w-screen h-full flex justify-center items-center'>
+    <div className='max-2xl:w-screen w-[50%] h-full flex justify-center items-start'>
     {
    data&&(
      data.map((item,index)=>(
-        <FollowCard data={item}/>
+        <FollowCard data={item} key={index}/>
     ))
     )
     }
