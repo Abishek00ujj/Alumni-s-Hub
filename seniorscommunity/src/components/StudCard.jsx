@@ -85,7 +85,7 @@ const StudCard = (props) => {
   const handleFollow = async () => {
     setLoad(true);
     try {
-      const response = await axios.put('http://localhost:5000/api/v1/follow', {
+      const response = await axios.put('https://alumni-s-hub.onrender.com/api/v1/follow', {
         userId: completeUser.data.id,
         followerId: props.props.Email,
       });
@@ -102,7 +102,7 @@ const StudCard = (props) => {
   const handleUnFollow = async () => {
     setLoad(true);
     try {
-      const response = await axios.put('http://localhost:5000/api/v1/unfollow', {
+      const response = await axios.put('https://alumni-s-hub.onrender.com/api/v1/unfollow', {
         userId: completeUser.data.id,
         followerId: props.props.Email,
       });
