@@ -5,7 +5,10 @@ export const FollowersPage = (props) => {
       console.log(data);
       useEffect(()=>setData(props.props),[])
     return (
-      <div className='max-2xl:w-screen w-[50%] h-full flex justify-center items-start'>
+      <div className='max-2xl:w-screen w-[50%] h-full space-y-2 flex flex-col justify-start items-center'>
+        <div>
+          Follower
+        </div>
       {
      data&&(
        data.map((item,index)=>(

@@ -27,7 +27,6 @@ const reactToPrintFn = useReactToPrint({ contentRef });
   const [followChange,setfollowChange]=useState(false);
   const [followerChange,setfollowerChange]=useState(false);
 
-
   const handleChangeFollow=()=>{
       if(followChange)
       {

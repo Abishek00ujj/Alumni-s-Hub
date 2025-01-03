@@ -5,7 +5,10 @@ export const Followingpage = (props) => {
     console.log(data);
     useEffect(()=>setData(props.props),[])
   return (
-    <div className='max-2xl:w-screen w-[50%] h-full flex justify-center items-start'>
+    <div className='max-2xl:w-screen w-[50%] h-full flex flex-col space-y-2 justify-start items-center'>
+      <div>
+        Following
+      </div>
     {
    data&&(
      data.map((item,index)=>(

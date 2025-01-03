@@ -17,16 +17,19 @@ import FollowingPage from './Followingpage'
 const shareUrl=window.location.href;
 const Profilecard = () => {
   const [follower,setFollowers]=useState([]);
+    const [isFollow, setFollow] = useState(false);
+    const [load, setLoad] = useState(false);
   const [following,setFollowing]=useState([]); 
   const [followerCount,setfollowerCount]=useState(0);
   const [followingCount,setfollowingCount]=useState(0);
     const location=useLocation();
     const {data}=location.state || {};
+    console.log(data);
     const contentRef = useRef(null);
       const [followChange,setfollowChange]=useState(false);
       const [followerChange,setfollowerChange]=useState(false);
-    
-    
+      
+      const completeUser = JSON.parse(localStorage.getItem("completeUser"));
       const handleChangeFollow=()=>{
           if(followChange)
           {
@@ -48,6 +51,39 @@ const Profilecard = () => {
             setfollowChange(!followChange);
           }
     }
+    const handleFollow = async () => {
+      setLoad(true);
+      try {
+        const response = await axios.put('http://localhost:5000/api/v1/follow', {
+          userId: completeUser.data.id,
+          followerId: data.acadamicdata.Email,
+        });
+        if (response.status === 200) {
+          setFollow(true);
+        }
+      } catch (error) {
+        console.error('Error following user:', error.message);
+      } finally {
+        setLoad(false);
+      }
+    };
+  
+    const handleUnFollow = async () => {
+      setLoad(true);
+      try {
+        const response = await axios.put('http://localhost:5000/api/v1/unfollow', {
+          userId: completeUser.data.id,
+          followerId: data.acadamicdata.Email,
+        });
+        if (response.status === 200) {
+          setFollow(false);
+        }
+      } catch (error) {
+        console.error('Error unfollowing user:', error.message);
+      } finally {
+        setLoad(false);
+      }
+    };
 const reactToPrintFn = useReactToPrint({ contentRef });
   const githubUrl = data ? `https://github.com/${data.userdata.Github}/` : "#";
   const leetcodeUrl = data ? `https://leetcode.com/u/${data.userdata.Leetcode}/` : "#";
@@ -66,9 +102,9 @@ const reactToPrintFn = useReactToPrint({ contentRef });
           <Navbar />
           <div ref={contentRef} className="w-screen bg-black flex space-y-5 pb-10 text-white justify-center max-2xl:flex-col items-start  max-2xl:items-center">
             {data && (
-              <div className="max-2xl:w-[80%] h-auto text-white flex flex-col justify-center items-center rounded-lg border border-white bg-[#121212] mt-5 mb-2 space-y-4 p-4">
-                <div className="w-full flex justify-between text-2xl">
-                  <p>{data?.acadamicdata.Name}</p>
+              <div className="max-2xl:w-[80%] w-[600px] h-auto text-white flex flex-col justify-center items-center rounded-lg border border-white bg-[#121212] mt-5 mb-2 space-y-4 p-4">
+                <div className="w-full flex justify-between text-[20px]">
+                  <p>{data.acadamicdata.Name || "Default Name"}</p>
                   <p>{`${data?.acadamicdata.Year} - ${data?.acadamicdata.Department} 🎓`}</p>
                 </div>
                 <img
