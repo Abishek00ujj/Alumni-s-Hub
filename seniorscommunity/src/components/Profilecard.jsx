@@ -14,16 +14,17 @@ import {
 } from "react-share";
 import FollowersPage from './FollowersPage'
 import FollowingPage from './Followingpage'
+import { Loader2Icon } from 'lucide-react';
 const shareUrl=window.location.href;
 const Profilecard = () => {
   const [follower,setFollowers]=useState([]);
-    const [isFollow, setFollow] = useState(false);
     const [load, setLoad] = useState(false);
   const [following,setFollowing]=useState([]); 
   const [followerCount,setfollowerCount]=useState(0);
   const [followingCount,setfollowingCount]=useState(0);
     const location=useLocation();
     const {data}=location.state || {};
+    const [isFollow, setFollow] = useState(data?.follow || false);
     console.log(data);
     const contentRef = useRef(null);
       const [followChange,setfollowChange]=useState(false);
@@ -119,6 +120,35 @@ const reactToPrintFn = useReactToPrint({ contentRef });
                     {data?.githubdata.blog}
                   </a>
                 </p>
+                {!isFollow ? (
+                          <button
+                            disabled={load}
+                            className={`w-[80%] rounded-lg h-[35px] text-white ${
+                              load ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-700'
+                            }`}
+                            onClick={handleFollow}
+                          >
+                            {load ? 
+                            <div className='w-full flex justify-center'>
+                               <Loader2Icon className="animate-spin" /> 
+                            </div>
+                            : 'Follow'}
+                          </button>
+                        ) : (
+                          <button
+                            disabled={load}
+                            className={`w-[80%]  rounded-lg h-[35px] text-white ${
+                              load ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#484545]'
+                            }`}
+                            onClick={handleUnFollow}
+                          >
+                            {load ? 
+                            <div className='w-full flex justify-center'>
+                               <Loader2Icon className="animate-spin" /> 
+                            </div> 
+                            : 'Un-Follow'}
+                          </button>
+                        )}
                 <p className="w-full flex space-x-2"><UsersRound/><p>{followerCount}</p><p onClick={handleChangeFollower} className="hover:text-orange-400">followers </p> <p></p> ● <p>{followingCount}</p><p onClick={handleChangeFollow} className="hover:text-orange-400">following</p></p>
                 <div className="w-full flex justify-start space-x-5 ">
                   <div className="w-full flex justify-start space-x-5">
