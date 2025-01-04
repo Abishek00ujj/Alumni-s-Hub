@@ -219,7 +219,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
                   src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${data?.userdata.Github}&hide=HTML&langs_count=8&layout=compact&theme=react&border_radius=10`}
                   alt="top languages"
                 />
-                <div className="w-full h-10 flex justify-center items-center max-2xl:justify-between mb-5 p-5 space-x-5">
+                <div className="w-full h-10 flex  items-center justify-between mb-5 p-5 space-x-5">
                 <button className="bg-orange-500 pl-8 pr-8 pt-2 pb-2  text-white rounded-lg" onClick={() => reactToPrintFn()}>Print</button>
                 <WhatsappShareButton url={shareUrl} title={"Hey,i am using Alumnis-hub & i am now a member of alumnis-hub,why wont't you join us?"} className="flex justify-center items-center space-x-4">
                 <p className=" text-2xl">Share</p><WhatsappIcon size={40} round={true}/>

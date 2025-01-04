@@ -63,10 +63,10 @@ export const Navbar = () => {
       {downbar && (
         <div className='w-[500px] h-auto flex flex-col bg-slate-600 absolute right-0 z-50'>
           <div className='h-10 border-2 border-white p-3 text-center justify-center items-center flex text-white bg-zinc-800'>
-            Blogs
+            Settings
           </div>
-          <div className='h-10 border-2 border-white p-3 text-center justify-center items-center flex text-white bg-zinc-800'>
-            About us
+          <div className='h-10 border-2 border-white p-3 text-center justify-center items-center flex text-white bg-zinc-800' >
+           <a href="https://codewithabi.vercel.app" target='_blank' className='w-full h-full flex justify-center items-center'> About us</a>
           </div>
         </div>
       )}
