@@ -17,6 +17,8 @@ import FollowersPage from './FollowersPage'
 import FollowingPage from './Followingpage'
 const shareUrl=window.location.href;
 const UserProfile = () => {
+   const [followerCount,setfollowerCount]=useState(0);
+    const [followingCount,setfollowingCount]=useState(0);
   const contentRef = useRef(null);
 const reactToPrintFn = useReactToPrint({ contentRef });
   const [userData, setUserData] = useState(null);
@@ -99,6 +101,15 @@ const reactToPrintFn = useReactToPrint({ contentRef });
     fetchData(); 
   }, []);
   
+    // useEffect(()=>{
+    //   setFollowers(data.userdata.Followers);
+    //   setFollowing(data.userdata.Following);
+    // },[])
+    useEffect(() => {
+      setfollowerCount(follower.length);
+      setfollowingCount(following.length);
+    }, [follower, following]);
+    
   // useEffect(() => {
    
   // }, [userData.id]);
@@ -151,7 +162,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
                 {gitData.blog}
               </a>
             </p>
-            <p className="w-full flex space-x-2"><UsersRound/><p onClick={handleChangeFollower} className="hover:text-orange-400">followers </p> <p></p> ● <p onClick={handleChangeFollow} className="hover:text-orange-400">following</p></p>
+            <p className="w-full flex space-x-2"><UsersRound/><p onClick={handleChangeFollower} className="hover:text-orange-400"><p>{followerCount+" "}</p>followers </p> <p></p> ● <p onClick={handleChangeFollow} className="hover:text-orange-400"><p>{followerCount+" "}</p>following</p></p>
             <div className="w-full flex justify-start space-x-5 ">
               <div className="w-full flex justify-start space-x-5">
                 <a href={linkedinUrl} target="_blank">

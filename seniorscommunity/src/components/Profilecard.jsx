@@ -37,7 +37,7 @@ const Profilecard = () => {
     //   });
     // };
     const [isFollow, setFollow] = useState(data?.follow || false);
-    console.log(data);
+    // console.log(data);
     const contentRef = useRef(null);
       const [followChange,setfollowChange]=useState(false);
       const [followerChange,setfollowerChange]=useState(false);
@@ -103,13 +103,14 @@ const reactToPrintFn = useReactToPrint({ contentRef });
   const linkedinUrl = data?.userdata.Linkedin || "#";
 
   useEffect(()=>{
-    // console.log(data.userdata.Followers);
     setFollowers(data.userdata.Followers);
-    // console.log(data.userdata.Following);
-    setfollowerCount(follower.length);
     setFollowing(data.userdata.Following);
-    setfollowingCount(following.length);
   },[])
+  useEffect(() => {
+    setfollowerCount(follower.length);
+    setfollowingCount(following.length);
+  }, [follower, following]);
+  
   return (
      <>
           <Navbar />
