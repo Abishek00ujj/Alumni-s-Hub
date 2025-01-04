@@ -203,7 +203,7 @@ const RootPage = () => {
         </div>
 
         <div id='bottom' className='w-full  flex justify-center items-center'>
-          <div className='w-[400px] h-auto border border-black rounded-lg  flex flex-col items-center justify-center space-y-5 mt-14 '>
+          <div className='w-[400px] h-auto border border-black rounded-lg bg-white  flex flex-col items-center justify-center space-y-5 mt-14 '>
             {hide1 ? (
               <>
                 <div className='text-2xl font-bold  text-center'>
