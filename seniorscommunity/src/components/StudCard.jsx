@@ -124,7 +124,7 @@ const StudCard = (props) => {
     <>
     {
       loading?(
-        <div className="w-[300px] h-[300px] bg-slate-400/20 backdrop-blur-3xl rounded-lg flex flex-col justify-start items-center p-3 mt-5 space-y-4">
+        <div className="w-[300px] h-[300px] bg-slate-400/20 backdrop-blur-3xl rounded-lg flex flex-col justify-start items-center mt-5 space-y-4">
           <div className='w-[80%] h-9 bg-slate-400/20 flex justify-start animate-pulse'>
  
           </div>

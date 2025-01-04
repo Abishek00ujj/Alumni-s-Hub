@@ -26,7 +26,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
   const [following,setFollowing]=useState(null); 
   const [followChange,setfollowChange]=useState(false);
   const [followerChange,setfollowerChange]=useState(false);
-
+  const [loading,setLoading]=useState(false);
   const handleChangeFollow=()=>{
       if(followChange)
       {
@@ -62,6 +62,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
   };
 
   useEffect(() => {
+    setLoading(true);
     const storedUserDetails = JSON.parse(localStorage.getItem("data"));
     setUserDetails(storedUserDetails);
   
@@ -83,13 +84,16 @@ const reactToPrintFn = useReactToPrint({ contentRef });
         const response = await axios.post('https://alumni-s-hub.onrender.com/api/v1/getData',{ id:completeUser.data.id});
         console.log(response.data.data.Following);
         if (response.status === 200) {
-          console.log("Followers:", response.data.data.Followers);
+          // console.log("Followers:", response.data.data.Followers);
           setFollowers(response.data.data.Followers);
-          console.log("Following:", response.data.data.Following);
+          // console.log("Following:", response.data.data.Following);
           setFollowing(response.data.data.Following);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
+      }
+      finally{
+        setLoading(false);
       }
     };
     fetchData(); 
@@ -107,7 +111,27 @@ const reactToPrintFn = useReactToPrint({ contentRef });
   return (
     <>
       <Navbar />
-      <div ref={contentRef} className="w-screen bg-black flex space-y-5 pb-10 text-white justify-center max-2xl:flex-col items-start  max-2xl:items-center">
+      {
+        loading? (
+       <>
+       <div className="w-screen h-screen bg-black flex justify-center items-center">
+       <div className="max-2xl:w-[80%] h-[80%] text-white flex flex-col justify-start items-center rounded-lg border bg-slate-400/20 mt-5 mb-2 space-y-10 p-4">
+          <div className="max-2xl:w-[80%] w-[500px] h-10 bg-slate-400/20 rounded-lg animate-pulse">
+
+          </div>
+          <div
+              className="w-[200px] h-[200px] rounded-full bg-slate-400/20 animate-pulse"
+          >
+          </div>
+          <div className="w-[50%] h-10 bg-slate-400/20 rounded-lg animate-pulse">
+
+          </div>
+        </div>
+       </div>
+       </>
+        ):(
+        <>
+         <div ref={contentRef} className="w-screen bg-black flex space-y-5 pb-10 text-white justify-center max-2xl:flex-col items-start  max-2xl:items-center">
         {gitData && (
           <div className="max-2xl:w-[80%] h-auto text-white flex flex-col justify-center items-center rounded-lg border border-white bg-[#121212] mt-5 mb-2 space-y-4 p-4">
             <div className="w-full flex justify-between text-2xl">
@@ -207,6 +231,9 @@ const reactToPrintFn = useReactToPrint({ contentRef });
           </div>
         )}
       </div>
+        </>
+        )
+      }
     </>
   );
 };

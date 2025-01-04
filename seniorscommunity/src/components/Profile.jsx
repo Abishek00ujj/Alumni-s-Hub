@@ -9,7 +9,7 @@ import toast, { Toaster } from 'react-hot-toast';
 const Profile = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [load, setLoad] = useState(true);
+  const [load, setLoad] = useState(false);
   const [darkmode, setDarkmode] = useState(true);
   const [hide, setHide] = useState(true);
 
@@ -41,6 +41,18 @@ const Profile = () => {
         notify();
           return;
        }
+       if(leetcodeRef.current.value.length>15)
+       {
+        const notify1 = () => toast('Leetcode username should be enter!');
+        notify1();
+          return;
+       }
+       if(githubRef.current.value.length>15)
+        {
+      const notify2 = () => toast('Github username should be enter!');
+       notify2();
+           return;
+        }
       const obj = {
         id: userData.Email,
         Linkedin: linkedinRef.current.value,
@@ -155,7 +167,7 @@ const Profile = () => {
                       >
                         {load ? (
                           <div className="animate-spin w-full h-full text-white">
-                            <Loader2 size={50} />
+                            <Loader2 size={40} />
                           </div>
                         ) : (
                           "Show my profile 🎉"

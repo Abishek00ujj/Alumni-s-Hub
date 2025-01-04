@@ -24,6 +24,18 @@ const Profilecard = () => {
   const [followingCount,setfollowingCount]=useState(0);
     const location=useLocation();
     const {data}=location.state || {};
+    // const sendProps = () => {
+    //   navigate('/profilecard/', {
+    //     state: {
+    //       data: {
+    //         githubdata: data.gitData,
+    //         userdata: data.data,
+    //         acadamicdata: data.props.props,
+    //         follow: data.isFollow,
+    //       },
+    //     },
+    //   });
+    // };
     const [isFollow, setFollow] = useState(data?.follow || false);
     console.log(data);
     const contentRef = useRef(null);
