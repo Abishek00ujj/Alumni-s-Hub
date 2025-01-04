@@ -12,7 +12,7 @@ const StudCard = (props) => {
   const [following, setFollowing] = useState([]);
   const [isFollow, setFollow] = useState(false);
   const [load, setLoad] = useState(false);
-
+  const [loading,setLoading]=useState(true);
   const completeUser = JSON.parse(localStorage.getItem("completeUser"));
 
   const sendProps = () => {
@@ -37,10 +37,14 @@ const StudCard = (props) => {
     } catch (error) {
       console.error('Error fetching GitHub data:', error.message);
     }
+    finally{
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     const fetchUserData = async () => {
+      setLoading(true);
       try {
         const response = await axios.post(
           'https://alumni-s-hub.onrender.com/api/v1/getData',
@@ -117,62 +121,80 @@ const StudCard = (props) => {
   };
 
   return (
-    <div className="w-[300px] h-[300px] bg-slate-400/20 backdrop-blur-3xl rounded-lg flex flex-col justify-center mt-5">
-      <div className="w-full flex justify-between p-2">
-        <p className="text-2xl text-white">{props.props.Name}</p>
-        <p className="text-2xl text-white">
-          {props.props.Year}-{props.props.Department}
-        </p>
-      </div>
-      <div className="w-full flex justify-center items-center">
-        {gitData ? (
-          <img
-            src={gitData.avatar_url || profile}
-            alt={`${data?.Github}'s Avatar`}
-            className="w-40 h-40 rounded-full"
-          />
-        ) : (
-          <Loader2Icon className="text-white animate-spin" />
-        )}
-      </div>
-      <div className="w-full flex justify-between p-2">
-        {!isFollow ? (
+    <>
+    {
+      loading?(
+        <div className="w-[300px] h-[300px] bg-slate-400/20 backdrop-blur-3xl rounded-lg flex flex-col justify-start items-center p-3 mt-5 space-y-4">
+          <div className='w-[80%] h-9 bg-slate-400/20 flex justify-start animate-pulse'>
+ 
+          </div>
+          <div className="w-full flex justify-center items-center">
+            <div
+              className="w-40 h-40 rounded-full bg-slate-400/20 animate-pulse"
+            />
+        </div>
+        </div>
+      ):(
+        <div className="w-[300px] h-[300px] bg-slate-400/20 backdrop-blur-3xl rounded-lg flex flex-col justify-center mt-5">
+        <div className="w-full flex justify-between p-2">
+          <p className="text-2xl text-white">{props.props.Name}</p>
+          <p className="text-2xl text-white">
+            {props.props.Year}-{props.props.Department}
+          </p>
+        </div>
+        <div className="w-full flex justify-center items-center">
+          {gitData ? (
+            <img
+              src={gitData.avatar_url || profile}
+              alt={`${data?.Github}'s Avatar`}
+              className="w-40 h-40 rounded-full"
+            />
+          ) : (
+            <Loader2Icon className="text-white animate-spin" />
+          )}
+        </div>
+        <div className="w-full flex justify-between p-2">
+          {!isFollow ? (
+            <button
+              disabled={load}
+              className={`w-[100px] rounded-lg h-[35px] text-white ${
+                load ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-700'
+              }`}
+              onClick={handleFollow}
+            >
+              {load ? 
+              <div className='w-full flex justify-center'>
+                 <Loader2Icon className="animate-spin" /> 
+              </div>
+              : 'Follow'}
+            </button>
+          ) : (
+            <button
+              disabled={load}
+              className={`w-[100px] rounded-lg h-[35px] text-white ${
+                load ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#484545]'
+              }`}
+              onClick={handleUnFollow}
+            >
+              {load ? 
+              <div className='w-full flex justify-center'>
+                 <Loader2Icon className="animate-spin" /> 
+              </div> 
+              : 'Un-Follow'}
+            </button>
+          )}
           <button
-            disabled={load}
-            className={`w-[100px] rounded-lg h-[35px] text-white ${
-              load ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-700'
-            }`}
-            onClick={handleFollow}
+            className="w-[100px] bg-orange-500 text-white rounded-lg h-[35px] hover:opacity-90"
+            onClick={sendProps}
           >
-            {load ? 
-            <div className='w-full flex justify-center'>
-               <Loader2Icon className="animate-spin" /> 
-            </div>
-            : 'Follow'}
+            View profile
           </button>
-        ) : (
-          <button
-            disabled={load}
-            className={`w-[100px] rounded-lg h-[35px] text-white ${
-              load ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#484545]'
-            }`}
-            onClick={handleUnFollow}
-          >
-            {load ? 
-            <div className='w-full flex justify-center'>
-               <Loader2Icon className="animate-spin" /> 
-            </div> 
-            : 'Un-Follow'}
-          </button>
-        )}
-        <button
-          className="w-[100px] bg-orange-500 text-white rounded-lg h-[35px] hover:opacity-90"
-          onClick={sendProps}
-        >
-          View profile
-        </button>
+        </div>
       </div>
-    </div>
+      )
+    }
+   
+    </>
   );
 };
 
