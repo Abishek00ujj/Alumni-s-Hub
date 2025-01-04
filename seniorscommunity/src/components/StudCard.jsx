@@ -75,11 +75,10 @@ const StudCard = (props) => {
         console.error('Error fetching current user data:', error.message);
       }
     };
-
     fetchUserData();
     fetchCurrentUser();
   }, [props.props.Email, completeUser.data.id]);
-
+  
   useEffect(() => {
     if (data && data.Github) {
       fetchGitHubData(data.Github);
@@ -137,7 +136,7 @@ const StudCard = (props) => {
       ):(
         <div className="w-[300px] h-[300px] bg-slate-400/20 backdrop-blur-3xl rounded-lg flex flex-col justify-center mt-5">
         <div className="w-full flex justify-between p-2">
-          <p className="text-2xl text-white">{props.props.Name}</p>
+          <p className="text-2xl text-white" >{props.props.Name}</p>
           <p className="text-2xl text-white">
             {props.props.Year}-{props.props.Department}
           </p>

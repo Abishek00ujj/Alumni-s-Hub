@@ -133,7 +133,10 @@ const reactToPrintFn = useReactToPrint({ contentRef });
                     {data?.githubdata.blog}
                   </a>
                 </p>
-                {!isFollow ? (
+                {
+                  completeUser.data.id !== data?.acadamicdata?.Email &&(
+                    <>
+                      {!isFollow ? (
                           <button
                             disabled={load}
                             className={`w-[80%] rounded-lg h-[35px] text-white ${
@@ -162,6 +165,10 @@ const reactToPrintFn = useReactToPrint({ contentRef });
                             : 'Un-Follow'}
                           </button>
                         )}
+                    </>
+                  )
+                }
+                
                 <p className="w-full flex space-x-2"><UsersRound/><p>{followerCount}</p><p onClick={handleChangeFollower} className="hover:text-orange-400">followers </p> <p></p> ● <p>{followingCount}</p><p onClick={handleChangeFollow} className="hover:text-orange-400">following</p></p>
                 <div className="w-full flex justify-start space-x-5 ">
                   <div className="w-full flex justify-start space-x-5">
