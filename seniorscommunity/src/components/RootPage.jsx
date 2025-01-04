@@ -20,10 +20,10 @@ const RootPage = () => {
   const [datu,setdatu]=useState(null);
   const [correct,Setcorrect]=useState(false);
   const handleChangeOTP = (newOTP) => {
-    console.log(datu);
+    // console.log(datu);
     setOtp(newOTP);
     if (newOTP === generatedOtp) {
-      console.log("Correct OTP!");
+      // console.log("Correct OTP!");
       const sendData=async(datu)=>{
         try {
           const res1= await axios.post('https://alumni-s-hub.onrender.com/api/v1/addUser',datu);
@@ -107,10 +107,10 @@ const RootPage = () => {
       Year: year,
       Department: Department.toUpperCase(),
     };
-    console.log(userData);
+    // console.log(userData);
     setdatu(userData);
     localStorage.setItem('data',JSON.stringify(userData));
-    console.log(JSON.parse(localStorage.getItem('data')));
+    // console.log(JSON.parse(localStorage.getItem('data')));
     setUserdata(userData);
     sendMail(email,Name);
   };
