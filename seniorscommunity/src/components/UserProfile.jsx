@@ -101,18 +101,18 @@ const reactToPrintFn = useReactToPrint({ contentRef });
     fetchData(); 
   }, []);
   
-    // useEffect(()=>{
-    //   setFollowers(data.userdata.Followers);
-    //   setFollowing(data.userdata.Following);
-    // },[])
-    useEffect(() => {
-      setfollowerCount(follower.length);
-      setfollowingCount(following.length);
-    }, [follower, following]);
-    
-  // useEffect(() => {
-   
-  // }, [userData.id]);
+    // // useEffect(()=>{
+    // //   setFollowers(data.userdata.Followers);
+    // //   setFollowing(data.userdata.Following);
+    // // },[])
+    // useEffect(() => {
+    //   setfollowerCount(follower.length);
+    //   // setfollowingCount(following.length);
+    // }, [follower]);
+    // useEffect(() => {
+    //   // setfollowerCount(follower.length);
+    //   // setfollowingCount(following.length);
+    // }, [following]);
   
 
   const githubUrl = userData ? `https://github.com/${userData.Github}/` : "#";
@@ -162,7 +162,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
                 {gitData.blog}
               </a>
             </p>
-            <p className="w-full flex space-x-2"><UsersRound/><p onClick={handleChangeFollower} className="hover:text-orange-400"><p>{followerCount+" "}</p>followers </p> <p></p> ● <p onClick={handleChangeFollow} className="hover:text-orange-400"><p>{followerCount+" "}</p>following</p></p>
+            <p className="w-full flex space-x-2"><UsersRound/><p onClick={handleChangeFollower} className="hover:text-orange-400  flex gap-1"><p>{follower.length+" "}</p>followers </p> <p></p> ● <p onClick={handleChangeFollow} className="hover:text-orange-400 flex gap-1"><p>{following.length+" "}</p>following</p></p>
             <div className="w-full flex justify-start space-x-5 ">
               <div className="w-full flex justify-start space-x-5">
                 <a href={linkedinUrl} target="_blank">
