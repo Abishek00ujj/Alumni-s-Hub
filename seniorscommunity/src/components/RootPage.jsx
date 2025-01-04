@@ -195,7 +195,7 @@ const RootPage = () => {
               <img src={Abi} alt="" className='w-[60px] h-[60px] rounded-full' />
               <div className='p-2 flex flex-col'>
                 <p className='text-white'>ABISHEK</p>
-                <p className='font-bold text-white'>Founder & CEO</p>
+                <p className='font-bold text-white'></p>
                 <p className='text-white'>Mission Possible pvt lmt</p>
               </div>
             </div>
