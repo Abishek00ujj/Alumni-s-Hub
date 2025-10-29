@@ -3,6 +3,7 @@ const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+
 const app = express();
 const PORT = 5000;
 
@@ -60,6 +61,10 @@ app.post("/generate-otp", (req, res) => {
     res.status(200).json({ message: "OTP sent successfully!", otp });
   });
 });
+
+const chatRoutes = require('./Route/chatRoutes');
+
+app.use("/api/v1/chats", chatRoutes);
 
 app.post("/verify-otp", (req, res) => {
   const { email, otp } = req.body;

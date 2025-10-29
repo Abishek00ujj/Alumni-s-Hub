@@ -7,6 +7,7 @@ import UserProfile from './components/UserProfile';
 import Home from './pages/Home';
 import Profilecard from './components/Profilecard';
 import NotFound from './pages/NotFound';
+import ChatPage from './pages/ChatPage';
 // Blog Components
 import BlogList from './pages/BlogList';
 import CreateBlog from './pages/CreateBlog';
@@ -20,6 +21,8 @@ const App = () => {
           {/* Existing Routes */}
           <Route path="/" element={<RootPage />} />
           <Route path="/signin" element={<Signin />} />
+          <Route path="/chats" element={<ChatPage />} />
+
           <Route path="/profile" element={<Profile />} />
           <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/profilecard" element={<Profilecard />} />
