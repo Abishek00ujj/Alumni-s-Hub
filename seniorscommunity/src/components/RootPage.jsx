@@ -127,7 +127,7 @@ const RootPage = () => {
       const result = await response.json();
       if (response.ok) {
         setGeneratedOtp(result.otp);
-        // console.log("Generated OTP:", result.otp);
+         console.log("Generated OTP:", result.otp);
         setEmail(false);
       } else {
         // console.error("Error generating OTP:", result.message);

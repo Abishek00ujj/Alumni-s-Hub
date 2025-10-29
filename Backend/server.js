@@ -6,14 +6,12 @@ const cors = require("cors");
 const app = express();
 const PORT = 5000;
 
-
 require('./connection/conn');
-
-
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
+
 const otpStorage = {};
 
 const transporter = nodemailer.createTransport({
@@ -24,8 +22,9 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// OTP Routes
 app.post("/generate-otp", (req, res) => {
-  const { email,Name } = req.body;
+  const { email, Name } = req.body;
 
   if (!email) {
     return res.status(400).json({ message: "Email is required!" });
@@ -51,7 +50,6 @@ app.post("/generate-otp", (req, res) => {
       </div>
     `,
   };
-  
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
@@ -78,10 +76,46 @@ app.post("/verify-otp", (req, res) => {
   res.status(400).json({ message: "Invalid OTP. Please try again." });
 });
 
+// Import Routes - MAKE SURE THESE ARE CORRECT
+const AddUser = require('./Route/AddUser');
+const blogRoutes = require('./Route/blogRoutes');
 
-const AddUser=require('./Route/AddUser');
-app.use("/api/v1",AddUser);
+// Debug - Check what's being imported
+console.log('AddUser type:', typeof AddUser);
+console.log('blogRoutes type:', typeof blogRoutes);
+
+// Register Routes
+app.use("/api/v1", AddUser);
+app.use("/api/v1/blogs", blogRoutes);  // ← This is line 85
+
+// Health check
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'OK', 
+    message: 'Server is running',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ 
+    success: false, 
+    message: `Route ${req.method} ${req.originalUrl} not found` 
+  });
+});
+
+// Error handler
+app.use((err, req, res, next) => {
+  console.error('Server Error:', err);
+  res.status(500).json({
+    success: false,
+    message: 'Internal server error',
+    error: err.message
+  });
+});
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`🚀 Server is running on http://localhost:${PORT}`);
+  console.log(`📝 Blog routes available at http://localhost:${PORT}/api/v1/blogs`);
 });
