@@ -61,7 +61,7 @@ const Home = () => {
 
   const fetchUnreadCount = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/v1/chats/unread/${storedUserDetails.Email}`);
+      const response = await axios.get(`https://alumni-s-hub.onrender.com/api/v1/chats/unread/${storedUserDetails.Email}`);
       if (response.data.success) {
         setUnreadCount(response.data.data.totalUnread);
       }
@@ -83,7 +83,7 @@ const Home = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/v1/GetUser');
+      const response = await axios.get('https://alumni-s-hub.onrender.com/api/v1/GetUser');
       if (response.data) {
         const allUsers = response.data.data;
         setUsers(allUsers);
@@ -108,7 +108,7 @@ const Home = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/v1/blogs', {
+      const response = await axios.get('https://alumni-s-hub.onrender.com/api/v1/blogs', {
         params: { limit: 5 }
       });
       if (response.data.success) {
@@ -175,7 +175,7 @@ const Home = () => {
 
   const handleStartChat = async (user) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/v1/chats/create', {
+      const response = await axios.post('https://alumni-s-hub.onrender.com/api/v1/chats/create', {
         user1: storedUserDetails.Email,
         user2: user.Email
       });

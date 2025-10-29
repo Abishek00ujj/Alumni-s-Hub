@@ -68,7 +68,7 @@ const getUnreadCountSafe = (chat, userEmail) => {
   const fetchUserChats = async () => {
   try {
     setLoading(true);
-    const response = await axios.get(`http://localhost:5000/api/v1/chats/user/${currentUserEmail}`);
+    const response = await axios.get(`https://alumni-s-hub.onrender.com/api/v1/chats/user/${currentUserEmail}`);
     
     if (response.data.success) {
       // Ensure all chats have proper unreadCount array
@@ -88,7 +88,7 @@ const getUnreadCountSafe = (chat, userEmail) => {
 
   const fetchChatMessages = async (chatId) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/v1/chats/messages/${chatId}`);
+      const response = await axios.get(`https://alumni-s-hub.onrender.com/api/v1/chats/messages/${chatId}`);
       
       if (response.data.success) {
         setMessages(response.data.data);
@@ -100,7 +100,7 @@ const getUnreadCountSafe = (chat, userEmail) => {
 
   const markMessagesAsRead = async (chatId) => {
   try {
-    await axios.put('http://localhost:5000/api/v1/chats/read', {
+    await axios.put('https://alumni-s-hub.onrender.com/api/v1/chats/read', {
       chatId,
       userEmail: currentUserEmail
     });
@@ -135,7 +135,7 @@ const getUnreadCountSafe = (chat, userEmail) => {
 
     try {
       setSendingMessage(true);
-      const response = await axios.post('http://localhost:5000/api/v1/chats/message', {
+      const response = await axios.post('https://alumni-s-hub.onrender.com/api/v1/chats/message', {
         chatId: selectedChat._id,
         sender: currentUserEmail,
         senderName: storedUserDetails.Name,
