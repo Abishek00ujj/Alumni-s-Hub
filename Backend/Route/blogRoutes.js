@@ -14,6 +14,7 @@ const {
   deleteComment,
   searchBlogs
 } = require('./blogController');
+router.post('/blogs/bulk', blogController.bulkCreateBlogs);
 
 // Public routes
 router.get('/', getAllBlogs);

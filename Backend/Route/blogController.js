@@ -1,5 +1,84 @@
 const Blog = require('../Model/Blog');
 const User = require('../Model/User123');
+// Bulk create blog posts
+exports.bulkCreateBlogs = async (req, res) => {
+  try {
+    const { blogs } = req.body;
+
+    // Validate that blogs array exists and is not empty
+    if (!blogs || !Array.isArray(blogs) || blogs.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please provide an array of blogs'
+      });
+    }
+
+    // Process each blog to add excerpt if not provided
+    const processedBlogs = blogs.map(blog => ({
+      title: blog.title,
+      content: blog.content,
+      excerpt: blog.excerpt || blog.content.substring(0, 150) + '...',
+      author: blog.authorId,
+      authorName: blog.authorName,
+      authorEmail: blog.authorEmail,
+      tags: blog.tags || [],
+      coverImage: blog.coverImage,
+      isPublished: blog.isPublished !== undefined ? blog.isPublished : true
+    }));
+
+    // Use insertMany for bulk insertion with ordered: false to continue on errors
+    const result = await Blog.insertMany(processedBlogs, { 
+      ordered: false,
+      rawResult: true 
+    });
+
+    res.status(201).json({
+      success: true,
+      message: `Successfully created ${result.length} blog posts`,
+      data: {
+        insertedCount: result.length,
+        blogs: result
+      }
+    });
+
+  } catch (error) {
+    console.error('Error in bulk blog creation:', error);
+
+    // Handle partial success with some validation errors
+    if (error.name === 'BulkWriteError' || error.writeErrors) {
+      const insertedCount = error.result?.nInserted || 0;
+      const failedCount = error.writeErrors?.length || 0;
+
+      return res.status(207).json({
+        success: false,
+        message: `Partial success: ${insertedCount} blogs created, ${failedCount} failed`,
+        data: {
+          insertedCount,
+          insertedIds: error.result?.insertedIds || [],
+          errors: error.writeErrors?.map(err => ({
+            index: err.index,
+            message: err.errmsg
+          }))
+        }
+      });
+    }
+
+    // Handle validation errors
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({
+        success: false,
+        message: 'Validation error in blog data',
+        error: error.message
+      });
+    }
+
+    res.status(500).json({
+      success: false,
+      message: 'Failed to create blog posts in bulk',
+      error: error.message
+    });
+  }
+};
 
 // Create a new blog post
 exports.createBlog = async (req, res) => {
