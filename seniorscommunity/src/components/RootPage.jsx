@@ -180,7 +180,7 @@ const RootPage = () => {
   return (
     <>
      <Toaster />
-      <Navbar />
+     
       <div className='w-screen h-screen justify-center items-center flex min-2xl:flex max-lg:flex-col max-2xl:justify-between'>
         <div className=' bg-violet-600 w-full min-h-screen flex flex-col space-y-5 justify-center items-center'>
           <div className='text-5xl text-white font-bold '>
